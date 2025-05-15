@@ -1,59 +1,68 @@
-# EdugoWebApp
+# EduGo Web Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.12.
+Edugo is a web app for viewing metrics and reports received from the mobile application.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- View metrics and analytics from the mobile app
+- Access detailed reports
+- Responsive and user-friendly interface
 
-```bash
-ng serve
-```
+## Tech Stack
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Angular
+- TypeScript
+- JavaScript
+- npm
 
-## Code scaffolding
+## Getting Started
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Prerequisites
 
-```bash
-ng generate component component-name
-```
+- Node.js (v16+)
+- npm
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+### Installation
 
 ```bash
-ng build
+npm install
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Ejecución en desarrollo
 
 ```bash
-ng test
+npm start
 ```
 
-## Running end-to-end tests
+Esto iniciará la aplicación en modo desarrollo. Por defecto, estará disponible en `http://localhost:4200/`.
 
-For end-to-end (e2e) testing, run:
+### Compilar para producción
 
 ```bash
-ng e2e
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Los archivos compilados estarán en la carpeta `dist/`.
 
-## Additional Resources
+## Estructura del proyecto
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- `src/` — Código fuente de la aplicación
+- `src/environments/` — Archivos de configuración de entorno
+- `README.md` — Este archivo
+
+## Configuración de entornos
+
+El proyecto utiliza archivos de entorno para diferenciar entre desarrollo y producción:
+
+- `environment.ts` — Configuración por defecto
+- `environment.development.ts` — Configuración para desarrollo
+
+## Scripts útiles
+
+- `npm start` — Inicia la app en modo desarrollo
+- `npm run build` — Compila la app para producción
+- `npm test` — Ejecuta los tests unitarios
+
+
+## Licencia
+
+Este proyecto está bajo la licencia MIT.
