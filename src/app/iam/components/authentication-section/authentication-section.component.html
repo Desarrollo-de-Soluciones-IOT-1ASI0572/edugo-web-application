@@ -1,1 +1,18 @@
-<p>authentication-section works!</p>
+<mat-card class="login-card">
+  <h2 class="login-title">Edugo</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="password" required />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="full-width" type="submit">
+      Login
+    </button>
+  </form>
+</mat-card>

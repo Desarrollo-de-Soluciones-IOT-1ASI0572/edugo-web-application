@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-authentication-section',
-  imports: [],
   templateUrl: './authentication-section.component.html',
-  styleUrl: './authentication-section.component.css'
+  styleUrls: ['./authentication-section.component.css'],
+  standalone: true,
+  imports: [MatCardModule]
 })
-export class AuthenticationSectionComponent {
-
-}
+export class AuthenticationSectionComponent {}
