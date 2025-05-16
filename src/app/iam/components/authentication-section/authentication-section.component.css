@@ -1,0 +1,18 @@
+.login-card {
+  margin: auto;
+  text-align: center;
+  width: 420px;
+  max-width: 90vw;
+
+  padding: 3rem 2.5rem;
+}
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.edugo-logo {
+  display: block;
+  margin: 0 auto 2rem auto;
+  max-width: 180px;
+  height: auto;
+}
