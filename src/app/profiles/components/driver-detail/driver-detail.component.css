@@ -1,0 +1,52 @@
+.driver-profile {
+  margin-bottom: 40px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #4a4a4a;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card img {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin-right: 20px;
+}
+
+.driver-info p {
+  margin: 5px 0;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.student-list {
+  margin-top: 40px;
+}
+
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.student-card {
+  text-align: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+mat-card img {
+  height: 150px;
+  object-fit: cover;
+}
