@@ -1,14 +1,18 @@
-<div class="main-layout">
-
+<div class="main-layout" *ngIf="shouldShowLayout()">
   <app-component-header></app-component-header>
-
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav mode="side" opened class="sidenav">
-      <app-component-sidebar [userName]="'Julio Rodriguez'" [userRole]="'Admin'"></app-component-sidebar>
+      <app-component-sidebar
+        [userName]="'Julio Rodriguez'"
+        [userRole]="'Admin'">
+      </app-component-sidebar>
     </mat-sidenav>
 
     <mat-sidenav-content>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
-  </mat-sidenav-container>
+
+<div *ngIf="!shouldShowLayout()">
+  <router-outlet></router-outlet>
 </div>
+

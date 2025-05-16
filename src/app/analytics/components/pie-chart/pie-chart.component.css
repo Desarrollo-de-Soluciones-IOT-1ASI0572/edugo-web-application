@@ -1,0 +1,11 @@
+.chart-container {
+  padding: 10px;
+  width: 600px;
+  height: 600px;
+  margin: auto;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
