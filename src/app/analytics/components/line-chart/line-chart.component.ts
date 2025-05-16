@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Chart,
   LineController,
@@ -9,22 +9,24 @@ import {
   Tooltip,
   Legend,
   Title,
-  ChartType
+  ChartType,
+  Tick,
+  Scale,
+  CoreScaleOptions
 } from 'chart.js';
-import {AnalyticsServiceService} from '../../services/analytics-service.service';
-import {Analytics} from '../../models/analytics.model';
-import moment from 'moment'
+import { AnalyticsDriverService } from '../../services/analytics-service.service';
+
 @Component({
   selector: 'app-line-chart',
+  standalone: true,
   imports: [],
   templateUrl: './line-chart.component.html',
-  styleUrl: './line-chart.component.css'
+  styleUrls: ['./line-chart.component.css']
 })
-export class LineChartComponent implements OnInit{
-
+export class LineChartComponent implements OnInit {
   public chart!: Chart;
 
-  constructor(private analyticService: AnalyticsServiceService) {
+  constructor(private driverService: AnalyticsDriverService) {
     Chart.register(
       LineController,
       LineElement,
@@ -38,66 +40,53 @@ export class LineChartComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    moment.locale('es'); // Establece el locale en español si lo deseas
+    this.driverService.getAnalyticsDrivers().subscribe(data => {
+      const driver = data[0]; // Puedes cambiar a otro índice si deseas
 
-    this.analyticService.getAnalytics().subscribe((data: Analytics[]) => {
-      const today = moment().startOf('day');
-      const startOfWeek = moment().startOf('isoWeek'); // lunes
-
-      const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-      const arrivalTimes: (number | null)[] = Array(5).fill(null);
-
-      const filteredData = data.filter((entry) => {
-        const entryDate = moment(entry.date).startOf('day');
-        return entryDate.isSameOrAfter(startOfWeek) && entryDate.isSameOrBefore(today);
-      });
-
-      filteredData.forEach((entry) => {
-        const entryDate = moment(entry.date).startOf('day');
-        const dayName = entryDate.format('dddd'); // 'Monday', 'Tuesday', etc.
-        const index = daysOfWeek.indexOf(dayName);
-        if (index !== -1) {
-          const [hour, minute] = entry.arrival_time_school.split(':').map(Number);
-          const arrivalInMinutes = hour * 60 + minute;
-          arrivalTimes[index] = arrivalInMinutes;
-        }
+      const labels = driver.arrivalTimesAtSchool.map((d: { date: string; time: string }) => d.date);
+      const values = driver.arrivalTimesAtSchool.map((d: { date: string; time: string }) => {
+        const [hour, min] = d.time.split(':').map(Number);
+        return hour * 60 + min;
       });
 
       this.chart = new Chart('arrivalLineChart', {
         type: 'line',
         data: {
-          labels: daysOfWeek,
-          datasets: [
-            {
-              label: 'Tiempo de llegada al colegio esta semana',
-              data: arrivalTimes,
-              borderColor: 'rgb(75, 192, 192)',
-              fill: false,
-              stepped: true,
-              pointRadius: 5,
-              pointBackgroundColor: 'rgb(75, 192, 192)',
-            },
-          ],
+          labels,
+          datasets: [{
+            label: `Llegadas de ${driver.driverName}`,
+            data: values,
+            borderColor: 'rgb(75, 192, 192)',
+            fill: false,
+            stepped: true,
+            pointRadius: 5,
+            pointBackgroundColor: 'rgb(75, 192, 192)',
+          }]
         },
         options: {
           scales: {
             y: {
-              min: 420,
+              min: 400,
               ticks: {
-                callback: function (tickValue: string | number) {
+                callback: function (
+                  this: Scale<CoreScaleOptions>,
+                  tickValue: string | number,
+                  index: number,
+                  ticks: Tick[]
+                ): string {
                   if (typeof tickValue === 'number') {
                     const hours = Math.floor(tickValue / 60);
                     const minutes = tickValue % 60;
                     return `${hours}:${minutes.toString().padStart(2, '0')}`;
                   }
-                  return tickValue;
-                },
+                  return String(tickValue);
+                }
               },
               title: {
                 display: true,
-                text: 'Hora de llegada',
-              },
-            },
+                text: 'Hora de llegada'
+              }
+            }
           },
           plugins: {
             tooltip: {
@@ -107,11 +96,11 @@ export class LineChartComponent implements OnInit{
                   const hours = Math.floor(value / 60);
                   const minutes = value % 60;
                   return `Hora de llegada: ${hours}:${minutes.toString().padStart(2, '0')}`;
-                },
-              },
-            },
-          },
-        },
+                }
+              }
+            }
+          }
+        }
       });
     });
   }

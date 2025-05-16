@@ -1,7 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {
   Chart,
-  ChartType,
   BarController,
   BarElement,
   CategoryScale,
@@ -10,77 +9,47 @@ import {
   Legend,
   Title
 } from 'chart.js';
-import {AnalyticsServiceService} from '../../services/analytics-service.service';
-import {Analytics} from '../../models/analytics.model';
+import { AnalyticsDriverService } from '../../services/analytics-service.service';
 
 @Component({
   selector: 'app-bar-chart',
+  standalone: true,
   imports: [],
   templateUrl: './bar-chart.component.html',
-  styleUrl: './bar-chart.component.css'
+  styleUrls: ['./bar-chart.component.css']
 })
 export class BarChartComponent implements OnInit {
-  public secondChart!: Chart;
+  @ViewChild('barCanvas', { static: true }) barCanvas!: ElementRef<HTMLCanvasElement>;
+  public chart!: Chart;
 
-  constructor(private analyticsService: AnalyticsServiceService) {
-    // ✅ Registrar los componentes necesarios para el gráfico de barras
-    Chart.register(
-      BarController,
-      BarElement,
-      CategoryScale,
-      LinearScale,
-      Tooltip,
-      Legend,
-      Title
-    );
+  constructor(private driverService: AnalyticsDriverService) {
+    Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend, Title);
   }
 
   ngOnInit(): void {
-    this.analyticsService.getAnalytics().subscribe((analytics: Analytics[]) => {
-      const grouped: { [day: string]: number[] } = {};
+    this.driverService.getAnalyticsDrivers().subscribe(data => {
+      const labels = data.map(d => d.driverName);
+      const values = data.map(d => d.distanceTraveled.reduce((acc: number, k: any) => acc + k.kilometers, 0));
 
-      analytics.forEach(entry => {
-        const day = this.formatDay(entry.date);
-        if (!grouped[day]) {
-          grouped[day] = [];
-        }
-        grouped[day].push(entry.avg_speed_kmh);
-      });
+      const ctx = this.barCanvas.nativeElement.getContext('2d');
+      if (!ctx) return console.error('No canvas context available for bar chart');
 
-      const weekdays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-      const labels: string[] = [];
-      const averages: number[] = [];
-
-      weekdays.forEach(day => {
-        const values = grouped[day];
-        if (values && values.length > 0) {
-          labels.push(day);
-          const sum = values.reduce((a, b) => a + b, 0);
-          averages.push(+(sum / values.length).toFixed(2));
-        }
-      });
-
-      const data = {
-        labels,
-        datasets: [{
-          label: 'Velocidad promedio por día (km/h)',
-          data: averages,
-          backgroundColor: 'rgba(255, 99, 132, 0.7)'
-        }]
-      };
-
-      this.secondChart = new Chart("secondChart", {
-        type: 'bar' as ChartType,
-        data,
+      this.chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Distancia total (km)',
+            data: values,
+            backgroundColor: 'rgba(54, 162, 235, 0.7)'
+          }]
+        },
         options: {
           responsive: true,
           plugins: {
             title: {
               display: true,
-              text: 'Velocidad promedio por día de la semana (solo con datos)'
-            },
-            legend: {
-              display: false
+              text: 'Kilómetros recorridos por conductor'
             }
           },
           scales: {
@@ -91,11 +60,5 @@ export class BarChartComponent implements OnInit {
         }
       });
     });
-  }
-
-  private formatDay(dateStr: string): string {
-    const date = new Date(dateStr + 'Z');
-    const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    return days[date.getUTCDay()];
   }
 }

@@ -1,19 +1,14 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Analytics} from '../models/analytics.model';
-import {Observable} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AnalyticsServiceService {
+@Injectable({ providedIn: 'root' })
+export class AnalyticsDriverService {
+  private apiUrl = 'https://jdu202012207.github.io/pruebas-api/analytics-drivers.json';
 
+  constructor(private http: HttpClient) {}
 
-  private baseUrl = 'https://edugo-data.free.beeceptor.com/analytics';
-
-  constructor(private http: HttpClient) { }
-
-  getAnalytics(): Observable<Analytics[]>{
-    return this.http.get<Analytics[]>(this.baseUrl);
+  getAnalyticsDrivers(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 }
