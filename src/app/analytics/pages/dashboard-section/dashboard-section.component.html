@@ -2,9 +2,9 @@
   <h1>Dashboard</h1>
   <div class="filter-section">
     <mat-form-field appearance="fill">
-      <mat-label>Seleccionar Conductor</mat-label>
+      <mat-label>Select a driver</mat-label>
       <mat-select [(ngModel)]="selectedDriverId" (selectionChange)="onDriverChange()">
-        <mat-option value="">Todos los conductores</mat-option>
+        <mat-option value="">All drivers</mat-option>
         <mat-option *ngFor="let driver of drivers" [value]="driver.driverUserId">
           {{driver.driverName}}
         </mat-option>
