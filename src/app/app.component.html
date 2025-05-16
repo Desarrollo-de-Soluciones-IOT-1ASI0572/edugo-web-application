@@ -1,7 +1,5 @@
-<!-- Mostrar layout solo si no estamos en /login -->
 <div class="main-layout" *ngIf="shouldShowLayout()">
   <app-component-header></app-component-header>
-
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav mode="side" opened class="sidenav">
       <app-component-sidebar
@@ -13,10 +11,8 @@
     <mat-sidenav-content>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
 
-<!-- Mostrar solo contenido para rutas como /login -->
 <div *ngIf="!shouldShowLayout()">
   <router-outlet></router-outlet>
 </div>
+

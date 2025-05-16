@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
-import { MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav';
 import { ComponentHeaderComponent } from './shared/components/component-header/component-header.component';
 import { ComponentSidebarComponent } from './shared/components/component-sidebar/component-sidebar.component';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgIf } from '@angular/common';
 
 @Component({

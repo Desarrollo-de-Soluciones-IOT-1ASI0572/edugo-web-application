@@ -1,41 +1,32 @@
 body {
-  background-color: yellow;
+    background-color: yellow;
 }
 
-/* Main Layout */
 .main-layout {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 64px);
-  /* Altura restante después del navbar */
+    display: flex;
+    flex-direction: column;
+    height: 100%
 }
 
-/* Sidenav Container */
 .sidenav-container {
-  flex: 1;
-  display: flex;
-  height: 100%;
+    flex: 1;
+    display: flex;
+    height: 100%;
 }
 
 .sidenav {
-  width: 250px;
-  /* Ancho fijo del sidebar */
-  background-color: #D9D9D9;
-  border-right: 1px solid #ddd;
-  /* Línea divisoria */
+    width: 250px;
+    background-color: #D9D9D9;
+    border-right: 1px solid #ddd;
 }
 
 mat-sidenav-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  /* Asegura que el contenido principal ocupe toda la altura */
-  overflow: auto;
-  /* Permite el scroll si el contenido es más grande que la pantalla */
-  background-color: #ffffff;
-  /* Fondo blanco para el contenido principal */
-  padding: 16px;
-  /* Espaciado interno */
-  flex: 1;
-  /* Permite que el contenido principal ocupe el espacio restante */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+    background-color: #ffffff;
+    padding: 16px;
+    flex: 1;
 }
+
