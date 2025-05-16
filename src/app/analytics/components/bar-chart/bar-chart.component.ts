@@ -9,7 +9,7 @@ import {
   Legend,
   Title
 } from 'chart.js';
-import { AnalyticsDriverService } from '../../services/analytics-service.service';
+import { AnalyticsServiceService } from '../../services/analytics-service.service';
 
 @Component({
   selector: 'app-bar-chart',
@@ -22,12 +22,12 @@ export class BarChartComponent implements OnInit {
   @ViewChild('barCanvas', { static: true }) barCanvas!: ElementRef<HTMLCanvasElement>;
   public chart!: Chart;
 
-  constructor(private driverService: AnalyticsDriverService) {
+  constructor(private driverService: AnalyticsServiceService) {
     Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend, Title);
   }
 
   ngOnInit(): void {
-    this.driverService.getAnalyticsDrivers().subscribe(data => {
+    this.driverService.getDriverAnalytics().subscribe(data => {
       const labels = data.map(d => d.driverName);
       const values = data.map(d => d.distanceTraveled.reduce((acc: number, k: any) => acc + k.kilometers, 0));
 

@@ -14,7 +14,7 @@ import {
   Scale,
   CoreScaleOptions
 } from 'chart.js';
-import { AnalyticsDriverService } from '../../services/analytics-service.service';
+import { AnalyticsServiceService } from '../../services/analytics-service.service';
 
 @Component({
   selector: 'app-line-chart',
@@ -26,7 +26,7 @@ import { AnalyticsDriverService } from '../../services/analytics-service.service
 export class LineChartComponent implements OnInit {
   public chart!: Chart;
 
-  constructor(private driverService: AnalyticsDriverService) {
+  constructor(private driverService: AnalyticsServiceService) {
     Chart.register(
       LineController,
       LineElement,
@@ -40,7 +40,7 @@ export class LineChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.driverService.getAnalyticsDrivers().subscribe(data => {
+    this.driverService.getDriverAnalytics().subscribe(data => {
       const driver = data[0]; // Puedes cambiar a otro índice si deseas
 
       const labels = driver.arrivalTimesAtSchool.map((d: { date: string; time: string }) => d.date);

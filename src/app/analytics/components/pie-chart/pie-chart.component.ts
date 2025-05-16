@@ -7,7 +7,7 @@ import {
   Title,
   PieController
 } from 'chart.js';
-import { AnalyticsDriverService } from '../../services/analytics-service.service';
+import { AnalyticsServiceService } from '../../services/analytics-service.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -20,12 +20,12 @@ export class PieChartComponent implements OnInit {
   @ViewChild('pieCanvas', { static: true }) pieCanvas!: ElementRef<HTMLCanvasElement>;
   public chart!: Chart;
 
-  constructor(private driverService: AnalyticsDriverService) {
+  constructor(private driverService: AnalyticsServiceService) {
     Chart.register(PieController, ArcElement, Tooltip, Legend, Title);
   }
 
   ngOnInit(): void {
-    this.driverService.getAnalyticsDrivers().subscribe(data => {
+    this.driverService.getDriverAnalytics().subscribe(data => {
       const totals = { Lateness: 0, Detour: 0, Speeding: 0 };
       data.forEach(driver => {
         totals.Lateness += driver.incidentSummary.lateness;

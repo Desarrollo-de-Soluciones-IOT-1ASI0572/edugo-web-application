@@ -6,6 +6,7 @@ import { SignInComponent } from './iam/pages/sign-in/sign-in.component';
 export const routes: Routes = [
   { path: 'login', component: SignInComponent },
   { path: 'dashboard', component: DashboardSectionComponent },
+  { path: 'reports', component: ReportViewComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 ];
