@@ -8,13 +8,13 @@ import { DriverDetailComponent } from './profiles/components/driver-detail/drive
 import { StudentDetailComponent } from './profiles/components/student-detail/student-detail.component';
 
 export const routes: Routes = [
-  { path: 'login', component: SignInComponent },
-  { path: 'dashboard', component: DashboardSectionComponent },
-  { path: 'reports', component: ReportViewComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' },
-  { path: 'drivers', component: DriversListComponent },
-  { path: 'students', component: StudentsListComponent },
+  { path: 'sign-in', component: SignInComponent },
+  { path: 'analytics/dashboard', component: DashboardSectionComponent },
+  { path: 'analytics/reports', component: ReportViewComponent },
+  { path: 'profiles/drivers', component: DriversListComponent },
+  { path: 'profiles/students', component: StudentsListComponent },
   { path: 'drivers/:id', component: DriverDetailComponent },
   { path: 'students/:id', component: StudentDetailComponent },
+  { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+  { path: '**', redirectTo: 'sign-in' },
 ];

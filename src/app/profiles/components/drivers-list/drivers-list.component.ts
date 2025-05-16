@@ -37,10 +37,10 @@ export class DriversListComponent {
     console.log('Valor seleccionado: ', this.selectedUserType);
     if (this.selectedUserType === 'driver') {
       console.log('Navigating to drivers...');
-      this.router.navigate(['/drivers']);
+      this.router.navigate(['profiles/drivers']);
     } else if (this.selectedUserType === 'student') {
       console.log('Navigating to students...');
-      this.router.navigate(['/students']);
+      this.router.navigate(['profiles/students']);
     } else {
       console.error('No user type selected');
     }

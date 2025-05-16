@@ -19,7 +19,7 @@ export class SignInComponent {
 
   onFormSubmit(credentials: { email: string; password: string }): void {
     this.authService.signIn(credentials.email, credentials.password).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
+      next: () => this.router.navigate(['analytics/dashboard']),
       error: (err) => console.error('Error en login:', err)
     });
   }

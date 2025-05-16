@@ -26,6 +26,6 @@ export class AppComponent {
   constructor(public router: Router) { }
 
   shouldShowLayout(): boolean {
-    return !this.router.url.includes('/login');
+    return !this.router.url.includes('/sign-in');
   }
 }
