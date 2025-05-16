@@ -1,1 +1,27 @@
-<p>component-sidebar works!</p>
+<div class="profile">
+  <img src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?semt=ais_hybrid&w=740"
+       alt="Profile Picture" class="profile-picture" />
+  <div class="profile-info">
+    <h3>{{ userName }}</h3>
+    <p>{{ userRole }}</p>
+  </div>
+</div>
+
+<mat-nav-list>
+  <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+    <mat-icon>dashboard</mat-icon>
+    <span>Dashboard</span>
+  </a>
+  <a mat-list-item routerLink="/drivers-and-students" routerLinkActive="active">
+    <mat-icon>people</mat-icon>
+    <span>Drivers and students</span>
+  </a>
+  <a mat-list-item routerLink="/reports" class="active" routerLinkActive="active">
+    <mat-icon>description</mat-icon>
+    <span>Reports</span>
+  </a>
+  <a mat-list-item routerLink="/logout" routerLinkActive="active">
+    <mat-icon>logout</mat-icon>
+    <span>Log Out</span>
+  </a>
+</mat-nav-list>

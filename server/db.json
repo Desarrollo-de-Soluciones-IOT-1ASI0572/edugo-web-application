@@ -1,0 +1,111 @@
+{
+    "dailyVehicleAnalytics": [
+      {
+        "id": 0,
+        "vehicle_id": 200,
+        "date": "2025-05-12",
+        "total_distance_km": 40.0,
+        "avg_speed_kmh": 31.5,
+        "max_speed_kmh": 55.2,
+        "alerts_count": 2,
+        "arrival_time_school": "07:42:00"
+      },
+      {
+        "id": 1,
+        "vehicle_id": 201,
+        "date": "2025-05-13",
+        "total_distance_km": 42.5,
+        "avg_speed_kmh": 35.2,
+        "max_speed_kmh": 60.5,
+        "alerts_count": 2,
+        "arrival_time_school": "07:45:00"
+      },
+      {
+        "id": 2,
+        "vehicle_id": 202,
+        "date": "2025-05-14",
+        "total_distance_km": 38.1,
+        "avg_speed_kmh": 30.7,
+        "max_speed_kmh": 55.0,
+        "alerts_count": 1,
+        "arrival_time_school": "07:50:00"
+      },
+      {
+        "id": 3,
+        "vehicle_id": 103,
+        "date": "2025-05-15",
+        "total_distance_km": 45.3,
+        "avg_speed_kmh": 36.8,
+        "max_speed_kmh": 62.0,
+        "alerts_count": 3,
+        "arrival_time_school": "07:40:00"
+      },
+      {
+        "id": 4,
+        "vehicle_id": 101,
+        "date": "2025-05-16",
+        "total_distance_km": 39.0,
+        "avg_speed_kmh": 34.0,
+        "max_speed_kmh": 58.5,
+        "alerts_count": 1,
+        "arrival_time_school": "07:55:00"
+      },
+      {
+        "id": 5,
+        "vehicle_id": 102,
+        "date": "2025-05-17",
+        "total_distance_km": 41.7,
+        "avg_speed_kmh": 32.5,
+        "max_speed_kmh": 59.0,
+        "alerts_count": 0,
+        "arrival_time_school": "07:48:00"
+      },
+      {
+        "id": "6",
+        "vehicle_id": 205,
+        "date": "2025-05-20",
+        "total_distance_km": 40.2,
+        "avg_speed_kmh": 28.6,
+        "max_speed_kmh": 54,
+        "alerts_count": 1,
+        "arrival_time_school": "07:46:00"
+      }
+    ],
+    "alerts": [
+      {
+        "id": 1,
+        "description": "Bus arrived late to the first stop",
+        "timestamp": "2025-05-13T07:45:00Z",
+        "trip_analytics_id": 101,
+        "type": "Lateness"
+      },
+      {
+        "id": 2,
+        "description": "Bus took an alternative route",
+        "timestamp": "2025-05-13T08:10:00Z",
+        "trip_analytics_id": 102,
+        "type": "Detour"
+      },
+      {
+        "id": 3,
+        "description": "Driver exceeded speed limit",
+        "timestamp": "2025-05-13T08:35:00Z",
+        "trip_analytics_id": 103,
+        "type": "Speeding"
+      },
+      {
+        "id": 4,
+        "description": "Another detour occurred due to traffic",
+        "timestamp": "2025-05-13T09:00:00Z",
+        "trip_analytics_id": 104,
+        "type": "Detour"
+      },
+      {
+        "id": 5,
+        "description": "Late arrival to school",
+        "timestamp": "2025-05-13T09:15:00Z",
+        "trip_analytics_id": 105,
+        "type": "Lateness"
+      }
+    ]
+  }
