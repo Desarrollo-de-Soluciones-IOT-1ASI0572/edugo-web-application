@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {
   Chart,
   LineController,
@@ -23,7 +23,8 @@ import { AnalyticsServiceService } from '../../services/analytics-service.servic
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.css']
 })
-export class LineChartComponent implements OnInit {
+export class LineChartComponent implements OnInit, OnChanges {
+  @Input() selectedDriverId: string = '';
   public chart!: Chart;
 
   constructor(private driverService: AnalyticsServiceService) {
@@ -40,8 +41,32 @@ export class LineChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.updateChart();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedDriverId']) {
+      this.updateChart();
+    }
+  }
+
+  private updateChart(): void {
     this.driverService.getDriverAnalytics().subscribe(data => {
-      const driver = data[0]; // Puedes cambiar a otro índice si deseas
+      // Destruir el gráfico anterior si existe
+      if (this.chart) {
+        this.chart.destroy();
+      }
+
+      // Filtrar datos según el conductor seleccionado
+      const filteredData = this.selectedDriverId
+        ? data.filter(d => d.driverUserId === this.selectedDriverId)
+        : data;
+
+      // Si no hay datos, no crear el gráfico
+      if (filteredData.length === 0) return;
+
+      // Usar el primer conductor de los datos filtrados
+      const driver = filteredData[0];
 
       const labels = driver.arrivalTimesAtSchool.map((d: { date: string; time: string }) => d.date);
       const values = driver.arrivalTimesAtSchool.map((d: { date: string; time: string }) => {
@@ -54,7 +79,7 @@ export class LineChartComponent implements OnInit {
         data: {
           labels,
           datasets: [{
-            label: `Llegadas de ${driver.driverName}`,
+            label: `Arrivals of ${driver.driverName}`,
             data: values,
             borderColor: 'rgb(75, 192, 192)',
             fill: false,
@@ -84,7 +109,7 @@ export class LineChartComponent implements OnInit {
               },
               title: {
                 display: true,
-                text: 'Hora de llegada'
+                text: 'Arrival time'
               }
             }
           },
@@ -95,7 +120,7 @@ export class LineChartComponent implements OnInit {
                   const value = context.raw as number;
                   const hours = Math.floor(value / 60);
                   const minutes = value % 60;
-                  return `Hora de llegada: ${hours}:${minutes.toString().padStart(2, '0')}`;
+                  return `Arrival time: ${hours}:${minutes.toString().padStart(2, '0')}`;
                 }
               }
             }

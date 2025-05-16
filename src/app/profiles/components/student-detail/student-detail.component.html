@@ -7,7 +7,7 @@
       <p><strong>School:</strong> {{ student.school }}</p>
       <p><strong>Degree:</strong> {{ student.degree }}</p>
       <p><strong>RFID wristband code:</strong> {{ student.rfidCode }}</p>
-      <p><strong>Driver:</strong> Carlos Quispe</p>
+      <p><strong>Driver:</strong> {{ driver.name || 'No driver assigned' }}</p>
     </div>
   </div>
 </div>

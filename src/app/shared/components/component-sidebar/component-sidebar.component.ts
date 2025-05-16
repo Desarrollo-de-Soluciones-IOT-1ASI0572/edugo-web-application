@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './component-sidebar.component.css'
 })
 export class ComponentSidebarComponent {
-  @Input() userName: string = 'Julio Rodriguez';
-  @Input() userRole: string = 'Admin';
+  @Input() userName: string = '';
+  @Input() userRole: string = '';
+
 }

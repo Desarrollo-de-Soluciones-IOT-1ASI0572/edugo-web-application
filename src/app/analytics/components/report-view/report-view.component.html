@@ -1,8 +1,8 @@
 <div class="container">
     <div class="header-container">
-        <h2>Análisis de Conductores</h2>
+        <h2>Drivers Analytics</h2>
         <mat-form-field appearance="outline" class="search-field">
-            <mat-label>Buscar conductor</mat-label>
+            <mat-label>Find a driver</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Escriba el nombre del conductor">
         </mat-form-field>
     </div>
@@ -10,37 +10,37 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <!-- Nombre del Conductor -->
         <ng-container matColumnDef="driverName">
-            <th mat-header-cell *matHeaderCellDef> Conductor </th>
+            <th mat-header-cell *matHeaderCellDef> Driver </th>
             <td mat-cell *matCellDef="let driver"> {{driver.driverName}} </td>
         </ng-container>
 
         <!-- Desvíos -->
         <ng-container matColumnDef="detour">
-            <th mat-header-cell *matHeaderCellDef> Desvíos </th>
+            <th mat-header-cell *matHeaderCellDef> Detours </th>
             <td mat-cell *matCellDef="let driver"> {{driver.incidentSummary.detour}} </td>
         </ng-container>
 
         <!-- Retrasos -->
         <ng-container matColumnDef="lateness">
-            <th mat-header-cell *matHeaderCellDef> Retrasos </th>
+            <th mat-header-cell *matHeaderCellDef> Delays </th>
             <td mat-cell *matCellDef="let driver"> {{driver.incidentSummary.lateness}} </td>
         </ng-container>
 
         <!-- Exceso de Velocidad -->
         <ng-container matColumnDef="speeding">
-            <th mat-header-cell *matHeaderCellDef> Exceso de Velocidad </th>
+            <th mat-header-cell *matHeaderCellDef> Speeding </th>
             <td mat-cell *matCellDef="let driver"> {{driver.incidentSummary.speeding}} </td>
         </ng-container>
 
         <!-- Tiempo Promedio de Llegada -->
         <ng-container matColumnDef="averageArrivalTime">
-            <th mat-header-cell *matHeaderCellDef> Tiempo Promedio de Llegada </th>
+            <th mat-header-cell *matHeaderCellDef> Average Arrival Time </th>
             <td mat-cell *matCellDef="let driver"> {{getAverageArrivalTime(driver.arrivalTimesAtSchool)}} </td>
         </ng-container>
 
         <!-- Distancia Promedio -->
         <ng-container matColumnDef="averageDistance">
-            <th mat-header-cell *matHeaderCellDef> Distancia Promedio (km) </th>
+            <th mat-header-cell *matHeaderCellDef> Average Distance (km) </th>
             <td mat-cell *matCellDef="let driver"> {{getAverageDistance(driver.distanceTraveled)}} </td>
         </ng-container>
 

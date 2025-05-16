@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { DriverService } from '../../services/driver.service';
 import { Driver } from '../../models/driver.model';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-drivers-list',
   imports: [
@@ -16,6 +17,7 @@ import { Driver } from '../../models/driver.model';
     FormsModule,
     CommonModule,
     RouterModule,
+    MatButtonModule
   ],
   templateUrl: './drivers-list.component.html',
   styleUrl: './drivers-list.component.css',
@@ -23,7 +25,7 @@ import { Driver } from '../../models/driver.model';
 export class DriversListComponent {
   drivers: Driver[] = [];
 
-  constructor(private router: Router, private driverService: DriverService) {}
+  constructor(private router: Router, private driverService: DriverService) { }
 
   selectedUserType: string = '';
 
