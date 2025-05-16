@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
 export class AnalyticsServiceService {
 
 
-  private baseUrl = 'http://localhost:3000/dailyVehicleAnalytics';
+  private baseUrl = 'https://edugo-data.free.beeceptor.com/analytics';
 
   constructor(private http: HttpClient) { }
 

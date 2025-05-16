@@ -8,7 +8,7 @@ import {Alert} from '../models/alert.model';
 })
 export class AlertService {
 
-  private baseUrl = 'http://localhost:3000/alerts';
+  private baseUrl = 'https://edugo-data.free.beeceptor.com/alerts';
 
   constructor(private http: HttpClient) { }
 
