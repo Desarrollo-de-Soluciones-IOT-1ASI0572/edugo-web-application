@@ -1,46 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthenticationService } from '../../services/authentication.service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationSectionComponent } from '../../components/authentication-section/authentication-section.component';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css'],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule
-  ]
+  imports: [AuthenticationSectionComponent, NgOptimizedImage]
 })
-export class SignInComponent implements OnInit {
-  form!: FormGroup;
+export class SignInComponent {
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
 
-  constructor(private fb: FormBuilder, private authService: AuthenticationService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
-  }
-
-  onSubmit(): void {
-    if (this.form.invalid) return;
-    const { email, password } = this.form.value;
-
-    this.authService.signIn(email, password).subscribe({
+  onFormSubmit(credentials: { email: string; password: string }): void {
+    this.authService.signIn(credentials.email, credentials.password).subscribe({
       next: () => this.router.navigate(['/dashboard']),
-      error: (err) => console.error('Login error:', err)
+      error: (err) => console.error('Error en login:', err)
     });
   }
 }
