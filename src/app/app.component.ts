@@ -5,6 +5,7 @@ import { Router, RouterOutlet, RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgIf } from '@angular/common';
 import { MatSidenavContainer } from '@angular/material/sidenav';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -16,16 +17,23 @@ import { MatSidenavContainer } from '@angular/material/sidenav';
     MatSidenavModule,
     ComponentHeaderComponent,
     ComponentSidebarComponent,
-    NgIf
+    NgIf,
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'edugo-web-app';
-  constructor(public router: Router) { }
+  constructor(public router: Router, private translate: TranslateService) {
+    this.translate.setDefaultLang('en');
+  }
 
   shouldShowLayout(): boolean {
     return !this.router.url.includes('/sign-in');
+  }
+
+  handleLanguageChange(language: string) {
+    console.log(`Switched language to: ${language}`);
+    this.translate.use(language);
   }
 }

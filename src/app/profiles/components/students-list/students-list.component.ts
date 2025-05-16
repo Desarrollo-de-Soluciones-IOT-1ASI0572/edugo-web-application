@@ -8,6 +8,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Student } from '../../models/student.model';
 import { StudentService } from '../../services/student.service';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-students-list',
@@ -18,7 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     CommonModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslateModule,
   ],
   templateUrl: './students-list.component.html',
   styleUrl: './students-list.component.css',
@@ -26,7 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class StudentsListComponent {
   students: Student[] = [];
 
-  constructor(private router: Router, private studentService: StudentService) { }
+  constructor(private router: Router, private studentService: StudentService) {}
   selectedUserType: string = '';
 
   navigateToUser() {

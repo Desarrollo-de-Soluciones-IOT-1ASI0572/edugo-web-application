@@ -8,7 +8,7 @@
   </mat-form-field>
 
   <button mat-raised-button color="primary" (click)="navigateToUser()">
-    Search
+    {{ "BUTTON.SEARCH" | translate }}
   </button>
 </div>
 
@@ -22,7 +22,7 @@
         color="primary"
         [routerLink]="['/drivers', driver.userId]"
       >
-        Details
+        {{ "BUTTON.DETAILS" | translate }}
       </button>
     </mat-card-content>
   </mat-card>

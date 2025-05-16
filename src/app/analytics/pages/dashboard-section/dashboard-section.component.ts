@@ -8,6 +8,7 @@ import { BarChartComponent } from '../../components/bar-chart/bar-chart.componen
 import { PieChartComponent } from '../../components/pie-chart/pie-chart.component';
 import { AnalyticsServiceService } from '../../services/analytics-service.service';
 import { DriverAnalytics } from '../../models/driver-analytics.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard-section',
@@ -19,23 +20,24 @@ import { DriverAnalytics } from '../../models/driver-analytics.model';
     MatSelectModule,
     LineChartComponent,
     BarChartComponent,
-    PieChartComponent
+    PieChartComponent,
+    TranslateModule,
   ],
   templateUrl: './dashboard-section.component.html',
-  styleUrls: ['./dashboard-section.component.css']
+  styleUrls: ['./dashboard-section.component.css'],
 })
 export class DashboardSectionComponent implements OnInit {
   drivers: DriverAnalytics[] = [];
   selectedDriverId: string = '';
 
-  constructor(private analyticsService: AnalyticsServiceService) { }
+  constructor(private analyticsService: AnalyticsServiceService) {}
 
   ngOnInit(): void {
     this.loadDrivers();
   }
 
   loadDrivers(): void {
-    this.analyticsService.getDriverAnalytics().subscribe(data => {
+    this.analyticsService.getDriverAnalytics().subscribe((data) => {
       this.drivers = data;
     });
   }

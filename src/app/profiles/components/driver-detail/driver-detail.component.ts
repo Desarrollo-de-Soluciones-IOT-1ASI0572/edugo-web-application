@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { Student } from '../../models/student.model';
 import { StudentService } from '../../services/student.service';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-driver-detail',
@@ -20,7 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     CommonModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslateModule,
   ],
   templateUrl: './driver-detail.component.html',
   styleUrl: './driver-detail.component.css',
@@ -33,7 +35,7 @@ export class DriverDetailComponent {
     private route: ActivatedRoute,
     private driverService: DriverService,
     private studentService: StudentService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     const driverId = this.route.snapshot.paramMap.get('id');

@@ -1,5 +1,16 @@
 <mat-toolbar color="primary" class="header">
-    <img src="https://i.postimg.cc/CMDSwZZP/edugo-logo.jpg" alt="Logo" class="logo">
-    <span class="header-spacer"></span>
-    <mat-slide-toggle class="language-toggle">ES</mat-slide-toggle>
+  <img
+    src="https://i.postimg.cc/CMDSwZZP/edugo-logo.jpg"
+    alt="Logo"
+    class="logo"
+  />
+  <span class="header-spacer"></span>
+
+  <mat-slide-toggle
+    class="language-toggle"
+    [checked]="currentLanguage === 'es'"
+    (change)="switchLanguage()"
+  >
+    {{ currentLanguage === "es" ? "EN" : "ES" }}
+  </mat-slide-toggle>
 </mat-toolbar>

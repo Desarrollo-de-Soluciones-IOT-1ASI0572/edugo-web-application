@@ -1,14 +1,18 @@
 <div class="user-filter">
   <mat-form-field appearance="fill">
-    <mat-label>User Type</mat-label>
+    <mat-label>{{ "FILTER.USER_TYPE" | translate }}</mat-label>
     <mat-select [(ngModel)]="selectedUserType">
-      <mat-option value="driver">Driver</mat-option>
-      <mat-option value="student">Student</mat-option>
+      <mat-option value="driver">
+        {{ "FILTER.DRIVER" | translate }}
+      </mat-option>
+      <mat-option value="student">
+        {{ "FILTER.STUDENT" | translate }}
+      </mat-option>
     </mat-select>
   </mat-form-field>
 
   <button mat-raised-button color="primary" (click)="navigateToUser()">
-    Search
+    {{ "BUTTON.SEARCH" | translate }}
   </button>
 </div>
 
@@ -24,7 +28,7 @@
         color="primary"
         [routerLink]="['/students', student.studentId]"
       >
-        Details
+        {{ "BUTTON.DETAILS" | translate }}
       </button>
     </mat-card-content>
   </mat-card>

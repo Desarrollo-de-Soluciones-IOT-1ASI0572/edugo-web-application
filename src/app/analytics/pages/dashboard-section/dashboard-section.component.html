@@ -1,12 +1,19 @@
 <div class="header-section">
-  <h1>Dashboard</h1>
+  <h1>{{ "DASHBOARD.MAIN_TITLE" | translate }}</h1>
+
   <div class="filter-section">
     <mat-form-field appearance="fill">
       <mat-label>Select a driver</mat-label>
-      <mat-select [(ngModel)]="selectedDriverId" (selectionChange)="onDriverChange()">
+      <mat-select
+        [(ngModel)]="selectedDriverId"
+        (selectionChange)="onDriverChange()"
+      >
         <mat-option value="">All drivers</mat-option>
-        <mat-option *ngFor="let driver of drivers" [value]="driver.driverUserId">
-          {{driver.driverName}}
+        <mat-option
+          *ngFor="let driver of drivers"
+          [value]="driver.driverUserId"
+        >
+          {{ driver.driverName }}
         </mat-option>
       </mat-select>
     </mat-form-field>

@@ -1,0 +1,44 @@
+{
+  "DASHBOARD": {
+    "MAIN_TITLE": "Tablero"
+  },
+  "SIDEBAR": {
+    "DASHBOARD": "Tablero",
+    "DRIVERS_STUDENTS": "Conductores y Estudiantes",
+    "REPORTS": "Informes",
+    "LOGOUT": "Cerrar sesión"
+  },
+  "BUTTON": {
+    "SEARCH": "Buscar",
+    "DETAILS": "Detalles"
+  },
+  "ANALYTICS": {
+    "TITLE": "Análisis de Conductores",
+    "SEARCH_LABEL": "Buscar un conductor",
+    "SEARCH_PLACEHOLDER": "Escriba el nombre del conductor",
+    "DRIVER": "Conductor",
+    "DETOURS": "Desvíos",
+    "DELAYS": "Retrasos",
+    "SPEEDING": "Exceso de Velocidad",
+    "AVERAGE_ARRIVAL_TIME": "Tiempo Promedio de Llegada",
+    "AVERAGE_DISTANCE": "Distancia Promedio (km)"
+  },
+  "DRIVER_DETAIL": {
+    "PROFILE_TITLE": "Perfil del Conductor",
+    "NAME": "Nombre",
+    "SCHOOL": "Escuela",
+    "LICENSE_PLATE": "Placa",
+    "PHONE": "Teléfono",
+    "LIST_OF_STUDENTS": "Lista de Estudiantes",
+    "BUTTON_DETAILS": "Detalles"
+  },
+  "STUDENT_DETAIL": {
+    "PROFILE_TITLE": "Perfil del Estudiante",
+    "NAME": "Nombre",
+    "SCHOOL": "Escuela",
+    "DEGREE": "Grado",
+    "RFID_CODE": "Código de Pulsera RFID",
+    "DRIVER": "Conductor",
+    "NO_DRIVER_ASSIGNED": "No tiene un conductor asignado"
+  }
+}

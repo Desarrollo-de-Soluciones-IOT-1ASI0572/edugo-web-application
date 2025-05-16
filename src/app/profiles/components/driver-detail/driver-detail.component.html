@@ -1,18 +1,30 @@
 <div class="driver-profile">
-  <h2>Driver Profile</h2>
+  <h2>{{ "DRIVER_DETAIL.PROFILE_TITLE" | translate }}</h2>
   <div class="profile-card">
     <img [src]="driver.photoUrl" alt="{{ driver.name }}" />
     <div class="driver-info">
-      <p><strong>Name:</strong> {{ driver.name }}</p>
-      <p><strong>School:</strong> {{ driver.vehicle.brand }}</p>
-      <p><strong>License Plate:</strong> {{ driver.vehicle.plateNumber }}</p>
-      <p><strong>Phone:</strong> {{ driver.phoneNumber }}</p>
+      <p>
+        <strong>{{ "DRIVER_DETAIL.NAME" | translate }}:</strong>
+        {{ driver.name }}
+      </p>
+      <p>
+        <strong>{{ "DRIVER_DETAIL.SCHOOL" | translate }}:</strong>
+        {{ driver.vehicle.brand }}
+      </p>
+      <p>
+        <strong>{{ "DRIVER_DETAIL.LICENSE_PLATE" | translate }}:</strong>
+        {{ driver.vehicle.plateNumber }}
+      </p>
+      <p>
+        <strong>{{ "DRIVER_DETAIL.PHONE" | translate }}:</strong>
+        {{ driver.phoneNumber }}
+      </p>
     </div>
   </div>
 </div>
 
 <div class="student-list">
-  <h2>List of students</h2>
+  <h2>{{ "DRIVER_DETAIL.LIST_OF_STUDENTS" | translate }}</h2>
   <div class="student-grid">
     <mat-card class="student-card" *ngFor="let student of students">
       <img mat-card-image [src]="student.photoUrl" alt="{{ student.name }}" />
@@ -20,8 +32,12 @@
         <h3>{{ student.name }}</h3>
         <p>{{ student.school }}</p>
         <p>{{ student.degree }}</p>
-        <button mat-button color="primary" [routerLink]="['/students', student.studentId]">
-          Details
+        <button
+          mat-button
+          color="primary"
+          [routerLink]="['/students', student.studentId]"
+        >
+          {{ "DRIVER_DETAIL.BUTTON_DETAILS" | translate }}
         </button>
       </mat-card-content>
     </mat-card>

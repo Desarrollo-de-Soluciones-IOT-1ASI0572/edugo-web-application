@@ -14,6 +14,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DriverAnalytics } from '../../models/driver-analytics.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-report-view',
@@ -27,20 +28,28 @@ import { DriverAnalytics } from '../../models/driver-analytics.model';
     MatNativeDateModule,
     CommonModule,
     FormsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    TranslateModule,
   ],
   templateUrl: './report-view.component.html',
-  styleUrl: './report-view.component.css'
+  styleUrl: './report-view.component.css',
 })
 export class ReportViewComponent implements OnInit {
   drivers: DriverAnalytics[] = [];
   dataSource = new MatTableDataSource<DriverAnalytics>(this.drivers);
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['driverName', 'detour', 'lateness', 'speeding', 'averageArrivalTime', 'averageDistance'];
+  displayedColumns: string[] = [
+    'driverName',
+    'detour',
+    'lateness',
+    'speeding',
+    'averageArrivalTime',
+    'averageDistance',
+  ];
   searchTerm: string = '';
 
-  constructor(private analyticsService: AnalyticsServiceService) { }
+  constructor(private analyticsService: AnalyticsServiceService) {}
 
   ngOnInit() {
     this.loadData();
@@ -56,12 +65,15 @@ export class ReportViewComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al cargar los datos:', error);
-      }
+      },
     });
   }
 
   setupFilter() {
-    this.dataSource.filterPredicate = (data: DriverAnalytics, filter: string) => {
+    this.dataSource.filterPredicate = (
+      data: DriverAnalytics,
+      filter: string
+    ) => {
       const searchStr = filter.toLowerCase();
       return data.driverName.toLowerCase().includes(searchStr);
     };
@@ -73,17 +85,23 @@ export class ReportViewComponent implements OnInit {
   }
 
   getAverageArrivalTime(arrivalTimes: { time: string }[]): string {
-    const times = arrivalTimes.map(at => {
+    const times = arrivalTimes.map((at) => {
       const [hours, minutes] = at.time.split(':').map(Number);
       return hours * 60 + minutes;
     });
     const average = times.reduce((a, b) => a + b, 0) / times.length;
     const hours = Math.floor(average / 60);
     const minutes = Math.round(average % 60);
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}`;
   }
 
   getAverageDistance(distances: { kilometers: number }[]): number {
-    return Number((distances.reduce((a, b) => a + b.kilometers, 0) / distances.length).toFixed(2));
+    return Number(
+      (
+        distances.reduce((a, b) => a + b.kilometers, 0) / distances.length
+      ).toFixed(2)
+    );
   }
 }
