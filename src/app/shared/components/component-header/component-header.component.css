@@ -1,0 +1,21 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    background-color: #3F51B5;
+}
+
+.header-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.header-spacer {
+    flex: 1;
+}
+
+.language-toggle {
+    color: white;
+}

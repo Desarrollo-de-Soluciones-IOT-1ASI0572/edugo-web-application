@@ -1,0 +1,41 @@
+body {
+    background-color: yellow;
+}
+
+/* Main Layout */
+.main-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%
+        /* Altura restante después del navbar */
+}
+
+/* Sidenav Container */
+.sidenav-container {
+    flex: 1;
+    display: flex;
+    height: 100%;
+}
+
+.sidenav {
+    width: 250px;
+    /* Ancho fijo del sidebar */
+    background-color: #D9D9D9;
+    border-right: 1px solid #ddd;
+    /* Línea divisoria */
+}
+
+mat-sidenav-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Asegura que el contenido principal ocupe toda la altura */
+    overflow: auto;
+    /* Permite el scroll si el contenido es más grande que la pantalla */
+    background-color: #ffffff;
+    /* Fondo blanco para el contenido principal */
+    padding: 16px;
+    /* Espaciado interno */
+    flex: 1;
+    /* Permite que el contenido principal ocupe el espacio restante */
+}

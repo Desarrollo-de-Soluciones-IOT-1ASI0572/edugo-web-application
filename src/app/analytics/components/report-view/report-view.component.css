@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+mat-form-field {
+    margin-right: 20px;
+}
+
+.mat-elevation-z8 {
+    box-shadow: 0px 2px 10px -1px rgba(0, 0, 0, 0.2);
+}
+
+th.mat-header-cell {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+td.mat-cell {
+    padding: 8px;
+}
+
+mat-paginator {
+    margin-top: 20px;
+}
