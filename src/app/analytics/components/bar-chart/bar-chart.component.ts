@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, Input, SimpleChanges, OnChanges} from '@angular/core';
 import {
   Chart,
   BarController,
@@ -18,8 +18,10 @@ import { AnalyticsDriverService } from '../../services/analytics-service.service
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.css']
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent implements OnInit, OnChanges {
   @ViewChild('barCanvas', { static: true }) barCanvas!: ElementRef<HTMLCanvasElement>;
+  @Input() conductorId!: number;
+
   public chart!: Chart;
 
   constructor(private driverService: AnalyticsDriverService) {
@@ -27,20 +29,36 @@ export class BarChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.driverService.getAnalyticsDrivers().subscribe(data => {
-      const labels = data.map(d => d.driverName);
-      const values = data.map(d => d.distanceTraveled.reduce((acc: number, k: any) => acc + k.kilometers, 0));
+    if (this.conductorId) {
+      this.loadChartData(this.conductorId);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['conductorId'] && !changes['conductorId'].firstChange) {
+      this.loadChartData(this.conductorId);
+    }
+  }
+
+  private loadChartData(id: number): void {
+    this.driverService.getAnalyticsByDriverId(id).subscribe(data => {
+      const labels = data.speedPerDay.map((item: { day: string }) => item.day);
+      const speeds = data.speedPerDay.map((item: { averageSpeed: number }) => item.averageSpeed);
 
       const ctx = this.barCanvas.nativeElement.getContext('2d');
       if (!ctx) return console.error('No canvas context available for bar chart');
+
+      if (this.chart) {
+        this.chart.destroy();
+      }
 
       this.chart = new Chart(ctx, {
         type: 'bar',
         data: {
           labels,
           datasets: [{
-            label: 'Distancia total (km)',
-            data: values,
+            label: 'Velocidad promedio (km/h)',
+            data: speeds,
             backgroundColor: 'rgba(54, 162, 235, 0.7)'
           }]
         },
@@ -49,12 +67,16 @@ export class BarChartComponent implements OnInit {
           plugins: {
             title: {
               display: true,
-              text: 'Kilómetros recorridos por conductor'
+              text: 'Velocidad promedio por día'
             }
           },
           scales: {
             y: {
-              beginAtZero: true
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Km/h'
+              }
             }
           }
         }

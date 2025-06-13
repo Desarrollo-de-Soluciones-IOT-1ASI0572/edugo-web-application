@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, SimpleChanges, Input, OnChanges} from '@angular/core';
 import {
   Chart,
   ArcElement,
@@ -16,8 +16,10 @@ import { AnalyticsDriverService } from '../../services/analytics-service.service
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.css']
 })
-export class PieChartComponent implements OnInit {
+export class PieChartComponent implements OnInit, OnChanges {
   @ViewChild('pieCanvas', { static: true }) pieCanvas!: ElementRef<HTMLCanvasElement>;
+  @Input() conductorId!: number; // 👈 Recibe el ID del conductor
+
   public chart!: Chart;
 
   constructor(private driverService: AnalyticsDriverService) {
@@ -25,16 +27,34 @@ export class PieChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.driverService.getAnalyticsDrivers().subscribe(data => {
-      const totals = { Lateness: 0, Detour: 0, Speeding: 0 };
-      data.forEach(driver => {
-        totals.Lateness += driver.incidentSummary.lateness;
-        totals.Detour += driver.incidentSummary.detour;
-        totals.Speeding += driver.incidentSummary.speeding;
-      });
+    if (this.conductorId) {
+      this.loadChartData(this.conductorId);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['conductorId'] && !changes['conductorId'].firstChange) {
+      this.loadChartData(this.conductorId);
+    }
+  }
+
+  private loadChartData(id: number): void {
+    this.driverService.getAnalyticsByDriverId(id).subscribe(data => {
+      const totals = {
+        Lateness: data.incidentSummary.lateness,
+        Detour: data.incidentSummary.detour,
+        Speeding: data.incidentSummary.speeding
+      };
 
       const ctx = this.pieCanvas.nativeElement.getContext('2d');
-      if (!ctx) return console.error('No canvas context for pie chart');
+      if (!ctx) {
+        console.error('No canvas context for pie chart');
+        return;
+      }
+
+      if (this.chart) {
+        this.chart.destroy();
+      }
 
       this.chart = new Chart(ctx, {
         type: 'pie',
@@ -58,4 +78,7 @@ export class PieChartComponent implements OnInit {
       });
     });
   }
+
+
+
 }

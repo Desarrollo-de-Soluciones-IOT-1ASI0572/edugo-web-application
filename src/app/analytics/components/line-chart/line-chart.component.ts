@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {
   Chart,
   LineController,
@@ -23,7 +23,9 @@ import { AnalyticsDriverService } from '../../services/analytics-service.service
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.css']
 })
-export class LineChartComponent implements OnInit {
+export class LineChartComponent implements OnInit, OnChanges {
+  @Input() conductorId!: number;
+
   public chart!: Chart;
 
   constructor(private driverService: AnalyticsDriverService) {
@@ -40,21 +42,38 @@ export class LineChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.driverService.getAnalyticsDrivers().subscribe(data => {
-      const driver = data[0]; // Puedes cambiar a otro índice si deseas
+    if (this.conductorId) {
+      this.loadChartData(this.conductorId);
+    }
+  }
 
-      const labels = driver.arrivalTimesAtSchool.map((d: { date: string; time: string }) => d.date);
-      const values = driver.arrivalTimesAtSchool.map((d: { date: string; time: string }) => {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['conductorId'] && !changes['conductorId'].firstChange) {
+      this.loadChartData(this.conductorId);
+    }
+  }
+
+  private loadChartData(id: number): void {
+    this.driverService.getAnalyticsByDriverId(id).subscribe(driver => {
+      const labels = driver.arrivalTimes.map((d: { day: string }) => d.day);
+      const values = driver.arrivalTimes.map((d: { time: string }) => {
         const [hour, min] = d.time.split(':').map(Number);
         return hour * 60 + min;
       });
 
-      this.chart = new Chart('arrivalLineChart', {
+      if (this.chart) {
+        this.chart.destroy();
+      }
+
+      const ctx = document.getElementById('arrivalLineChart') as HTMLCanvasElement;
+      if (!ctx) return;
+
+      this.chart = new Chart(ctx, {
         type: 'line',
         data: {
           labels,
           datasets: [{
-            label: `Llegadas de ${driver.driverName}`,
+            label: `Hora de llegada`,
             data: values,
             borderColor: 'rgb(75, 192, 192)',
             fill: false,
@@ -64,15 +83,14 @@ export class LineChartComponent implements OnInit {
           }]
         },
         options: {
+          responsive: true,
           scales: {
             y: {
               min: 400,
               ticks: {
                 callback: function (
                   this: Scale<CoreScaleOptions>,
-                  tickValue: string | number,
-                  index: number,
-                  ticks: Tick[]
+                  tickValue: string | number
                 ): string {
                   if (typeof tickValue === 'number') {
                     const hours = Math.floor(tickValue / 60);

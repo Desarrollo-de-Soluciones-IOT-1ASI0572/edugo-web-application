@@ -1,15 +1,25 @@
 <h1>Dashboard</h1>
+<mat-form-field appearance="fill">
+  <mat-label>Selecciona un conductor</mat-label>
+  <mat-select [value]="selectedConductorId" (selectionChange)="onConductorChange($event.value)">
+    <mat-option *ngFor="let conductor of conductores" [value]="conductor.id">
+      {{ conductor.nombre }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<hr>
 
 <div class="dashboard-layout">
   <div class="left-charts">
     <div class="chart-section">
-      <app-line-chart></app-line-chart>
+      <app-line-chart [conductorId]="selectedConductorId"></app-line-chart>
     </div>
     <div class="chart-section">
-      <app-bar-chart></app-bar-chart>
+      <app-bar-chart [conductorId]="selectedConductorId"></app-bar-chart>
     </div>
   </div>
   <div class="right-chart">
-    <app-pie-chart></app-pie-chart>
+    <app-pie-chart [conductorId]="selectedConductorId"></app-pie-chart>
   </div>
 </div>
