@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, Input, SimpleChanges, OnChanges} from '@angular/core';
+
 import {
   Chart,
   BarController,
@@ -19,8 +20,10 @@ import { AnalyticsServiceService } from '../../services/analytics-service.servic
   styleUrls: ['./bar-chart.component.css']
 })
 export class BarChartComponent implements OnInit, OnChanges {
-  @Input() selectedDriverId: string = '';
+
   @ViewChild('barCanvas', { static: true }) barCanvas!: ElementRef<HTMLCanvasElement>;
+  @Input() conductorId!: number;
+
   public chart!: Chart;
 
   constructor(private driverService: AnalyticsServiceService) {
@@ -28,40 +31,39 @@ export class BarChartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.updateChart();
-  }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['selectedDriverId']) {
-      this.updateChart();
+    if (this.conductorId) {
+      this.loadChartData(this.conductorId);
     }
   }
 
-  private updateChart(): void {
-    this.driverService.getDriverAnalytics().subscribe(data => {
-      // Destruir el gráfico anterior si existe
-      if (this.chart) {
-        this.chart.destroy();
-      }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['conductorId'] && !changes['conductorId'].firstChange) {
+      this.loadChartData(this.conductorId);
+    }
+  }
 
-      // Filtrar datos según el conductor seleccionado
-      const filteredData = this.selectedDriverId
-        ? data.filter(d => d.driverUserId === this.selectedDriverId)
-        : data;
+  private loadChartData(id: number): void {
+    this.driverService.getAnalyticsByDriverId(id).subscribe(data => {
+      const labels = data.speedPerDay.map((item: { day: string }) => item.day);
+      const speeds = data.speedPerDay.map((item: { averageSpeed: number }) => item.averageSpeed);
 
-      const labels = filteredData.map(d => d.driverName);
-      const values = filteredData.map(d => d.distanceTraveled.reduce((acc: number, k: any) => acc + k.kilometers, 0));
 
       const ctx = this.barCanvas.nativeElement.getContext('2d');
       if (!ctx) return console.error('No canvas context available for bar chart');
+
+      if (this.chart) {
+        this.chart.destroy();
+      }
 
       this.chart = new Chart(ctx, {
         type: 'bar',
         data: {
           labels,
           datasets: [{
-            label: 'Total distance (km)',
-            data: values,
+            label: 'Velocidad promedio (km/h)',
+            data: speeds,
+
             backgroundColor: 'rgba(54, 162, 235, 0.7)'
           }]
         },
@@ -70,12 +72,16 @@ export class BarChartComponent implements OnInit, OnChanges {
           plugins: {
             title: {
               display: true,
-              text: 'Kilometers traveled by driver'
+              text: 'Velocidad promedio por día'
             }
           },
           scales: {
             y: {
-              beginAtZero: true
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Km/h'
+              }
             }
           }
         }

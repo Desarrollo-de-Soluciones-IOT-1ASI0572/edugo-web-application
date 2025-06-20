@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DriverAnalytics } from '../models/driver-analytics.model';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AnalyticsServiceService {
-  private apiUrl = 'https://jdu202012207.github.io/pruebas-api/analytics-drivers.json';
+
+@Injectable({ providedIn: 'root' })
+export class AnalyticsDriverService {
+  private apiUrl = 'http://localhost:8080/api/analytics/dashboard';
+
 
   constructor(private http: HttpClient) { }
 
-  getDriverAnalytics(): Observable<DriverAnalytics[]> {
-    return this.http.get<DriverAnalytics[]>(this.apiUrl);
+
+  getAnalyticsByDriverId(driverId: number): Observable<any> {
+    const token = 'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NTAzNzMxMjQsImV4cCI6MTc1MDk3NzkyNH0.19x4_-UkupHlLvNnbLg3b7reiITi4-pJFkjoi8ccSoMFpE8zZeKeiEzBOwpgIFoS'; 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const url = `${this.apiUrl}/${driverId}`;
+    return this.http.get<any>(url, { headers });
   }
 }

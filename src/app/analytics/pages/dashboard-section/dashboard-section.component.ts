@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { LineChartComponent } from '../../components/line-chart/line-chart.component';
-import { BarChartComponent } from '../../components/bar-chart/bar-chart.component';
-import { PieChartComponent } from '../../components/pie-chart/pie-chart.component';
-import { AnalyticsServiceService } from '../../services/analytics-service.service';
-import { DriverAnalytics } from '../../models/driver-analytics.model';
-import { TranslateModule } from '@ngx-translate/core';
+
+import {Component, OnInit} from '@angular/core';
+import {PieChartComponent} from '../../components/pie-chart/pie-chart.component';
+import {LineChartComponent} from '../../components/line-chart/line-chart.component';
+import {BarChartComponent} from '../../components/bar-chart/bar-chart.component';
+import {NgForOf} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {MatFormField, MatLabel} from '@angular/material/input';
+import {MatSelect} from '@angular/material/select';
+import {MatOption} from '@angular/material/core';
+import {UserService} from '../../services/user.service';
+
 
 @Component({
   selector: 'app-dashboard-section',
@@ -20,26 +21,41 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     LineChartComponent,
     BarChartComponent,
-    PieChartComponent,
-    TranslateModule,
+    NgForOf,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    FormsModule,
+    MatOption,
+
   ],
   templateUrl: './dashboard-section.component.html',
   styleUrls: ['./dashboard-section.component.css'],
 })
 export class DashboardSectionComponent implements OnInit {
-  drivers: DriverAnalytics[] = [];
-  selectedDriverId: string = '';
 
-  constructor(private analyticsService: AnalyticsServiceService) {}
+
+  conductores: { id: number, nombre: string }[] = [];
+
+
+  selectedConductorId: number = 1;
+
+  constructor(private usuarioService: UserService) {}
+
 
   ngOnInit(): void {
-    this.loadDrivers();
+    this.usuarioService.obtenerConductores().subscribe(conductores => {
+      this.conductores = conductores;
+      if (conductores.length > 0) {
+        this.selectedConductorId = conductores[0].id;
+      }
+    });
   }
 
-  loadDrivers(): void {
-    this.analyticsService.getDriverAnalytics().subscribe((data) => {
-      this.drivers = data;
-    });
+  onConductorChange(selectedId: number): void {
+    this.selectedConductorId = selectedId;
+    console.log('Conductor seleccionado:', selectedId);
+
   }
 
   onDriverChange(): void {
