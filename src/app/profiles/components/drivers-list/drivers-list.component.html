@@ -1,1 +1,29 @@
-<p>drivers-list works!</p>
+<div class="user-filter">
+  <mat-form-field appearance="fill">
+    <mat-label>User Type</mat-label>
+    <mat-select [(ngModel)]="selectedUserType">
+      <mat-option value="driver">Driver</mat-option>
+      <mat-option value="student">Student</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="navigateToUser()">
+    {{ "BUTTON.SEARCH" | translate }}
+  </button>
+</div>
+
+<div class="user-grid">
+  <mat-card class="user-card" *ngFor="let driver of drivers">
+    <img mat-card-image [src]="driver.photoUrl" alt="{{ driver.name }}" />
+    <mat-card-content>
+      <h3>{{ driver.name }}</h3>
+      <button
+        mat-button
+        color="primary"
+        [routerLink]="['/drivers', driver.userId]"
+      >
+        {{ "BUTTON.DETAILS" | translate }}
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

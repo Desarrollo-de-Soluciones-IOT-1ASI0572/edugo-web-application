@@ -1,0 +1,38 @@
+.student-profile {
+  margin-bottom: 40px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #4a4a4a;
+  border-bottom: 1px solid #dcdcdc;
+  padding-bottom: 5px;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card img {
+  border-radius: 12px;
+  width: 150px;
+  height: 150px;
+  margin-right: 20px;
+  object-fit: cover;
+}
+
+.student-info p {
+  margin: 5px 0;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.student-info p strong {
+  color: #555;
+}

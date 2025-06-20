@@ -1,3 +1,4 @@
+
 <h1>Dashboard</h1>
 <mat-form-field appearance="fill">
   <mat-label>Selecciona un conductor</mat-label>
@@ -10,9 +11,11 @@
 
 <hr>
 
+
 <div class="dashboard-layout">
   <div class="left-charts">
     <div class="chart-section">
+
       <app-line-chart [conductorId]="selectedConductorId"></app-line-chart>
     </div>
     <div class="chart-section">
@@ -21,5 +24,6 @@
   </div>
   <div class="right-chart">
     <app-pie-chart [conductorId]="selectedConductorId"></app-pie-chart>
+
   </div>
 </div>

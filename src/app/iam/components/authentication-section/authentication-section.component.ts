@@ -41,6 +41,6 @@ export class AuthenticationSectionComponent {
   }
 
   goToDashboard() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['analytics/dashboard']);
   }
 }

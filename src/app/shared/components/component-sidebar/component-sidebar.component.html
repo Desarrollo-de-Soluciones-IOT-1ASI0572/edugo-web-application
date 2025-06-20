@@ -1,6 +1,9 @@
 <div class="profile">
-  <img src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?semt=ais_hybrid&w=740"
-       alt="Profile Picture" class="profile-picture" />
+  <img
+    src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?semt=ais_hybrid&w=740"
+    alt="Profile Picture"
+    class="profile-picture"
+  />
   <div class="profile-info">
     <h3>{{ userName }}</h3>
     <p>{{ userRole }}</p>
@@ -8,20 +11,20 @@
 </div>
 
 <mat-nav-list>
-  <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+  <a mat-list-item routerLink="analytics/dashboard" routerLinkActive="active">
     <mat-icon>dashboard</mat-icon>
-    <span>Dashboard</span>
+    <span>{{ "SIDEBAR.DASHBOARD" | translate }}</span>
   </a>
-  <a mat-list-item routerLink="/drivers-and-students" routerLinkActive="active">
+  <a mat-list-item routerLink="profiles/drivers" routerLinkActive="active">
     <mat-icon>people</mat-icon>
-    <span>Drivers and students</span>
+    <span>{{ "SIDEBAR.DRIVERS_STUDENTS" | translate }}</span>
   </a>
-  <a mat-list-item routerLink="/reports" class="active" routerLinkActive="active">
+  <a mat-list-item routerLink="analytics/reports" routerLinkActive="active">
     <mat-icon>description</mat-icon>
-    <span>Reports</span>
+    <span>{{ "SIDEBAR.REPORTS" | translate }}</span>
   </a>
   <a mat-list-item routerLink="/logout" routerLinkActive="active">
     <mat-icon>logout</mat-icon>
-    <span>Log Out</span>
+    <span>{{ "SIDEBAR.LOGOUT" | translate }}</span>
   </a>
 </mat-nav-list>

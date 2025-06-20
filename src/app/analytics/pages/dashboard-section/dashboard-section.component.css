@@ -7,7 +7,8 @@
 .left-charts {
   display: flex;
   flex-direction: column;
-  flex: 1.5; /* ⬅️ Reducimos el ancho total de la columna izquierda */
+  flex: 1.5;
+  /* ⬅️ Reducimos el ancho total de la columna izquierda */
   gap: 20px;
 }
 
@@ -16,20 +17,34 @@
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  height: 420px; /* ⬅️ Más pequeño */
+  height: 420px;
+  /* ⬅️ Más pequeño */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .right-chart {
-  flex: 1; /* ⬅️ Hacemos el gráfico de pie más ancho */
+  flex: 1;
+  /* ⬅️ Hacemos el gráfico de pie más ancho */
   background: #fff;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  height: 670px; /* ⬅️ Más alto */
+  height: 670px;
+  /* ⬅️ Más alto */
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filter-section {
+  min-width: 250px;
 }

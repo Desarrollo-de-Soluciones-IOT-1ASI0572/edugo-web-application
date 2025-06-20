@@ -14,7 +14,7 @@ import {
   Scale,
   CoreScaleOptions
 } from 'chart.js';
-import { AnalyticsDriverService } from '../../services/analytics-service.service';
+import { AnalyticsServiceService } from '../../services/analytics-service.service';
 
 @Component({
   selector: 'app-line-chart',
@@ -24,11 +24,12 @@ import { AnalyticsDriverService } from '../../services/analytics-service.service
   styleUrls: ['./line-chart.component.css']
 })
 export class LineChartComponent implements OnInit, OnChanges {
+
   @Input() conductorId!: number;
 
   public chart!: Chart;
 
-  constructor(private driverService: AnalyticsDriverService) {
+  constructor(private driverService: AnalyticsServiceService) {
     Chart.register(
       LineController,
       LineElement,
@@ -42,6 +43,7 @@ export class LineChartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+
     if (this.conductorId) {
       this.loadChartData(this.conductorId);
     }
@@ -52,6 +54,7 @@ export class LineChartComponent implements OnInit, OnChanges {
       this.loadChartData(this.conductorId);
     }
   }
+
 
   private loadChartData(id: number): void {
     this.driverService.getAnalyticsByDriverId(id).subscribe(driver => {
@@ -102,7 +105,7 @@ export class LineChartComponent implements OnInit, OnChanges {
               },
               title: {
                 display: true,
-                text: 'Hora de llegada'
+                text: 'Arrival time'
               }
             }
           },
@@ -113,7 +116,7 @@ export class LineChartComponent implements OnInit, OnChanges {
                   const value = context.raw as number;
                   const hours = Math.floor(value / 60);
                   const minutes = value % 60;
-                  return `Hora de llegada: ${hours}:${minutes.toString().padStart(2, '0')}`;
+                  return `Arrival time: ${hours}:${minutes.toString().padStart(2, '0')}`;
                 }
               }
             }

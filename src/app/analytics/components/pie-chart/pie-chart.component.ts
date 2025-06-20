@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef, SimpleChanges, Input, OnChanges} from '@angular/core';
+
 import {
   Chart,
   ArcElement,
@@ -7,7 +8,7 @@ import {
   Title,
   PieController
 } from 'chart.js';
-import { AnalyticsDriverService } from '../../services/analytics-service.service';
+import { AnalyticsServiceService } from '../../services/analytics-service.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -17,12 +18,13 @@ import { AnalyticsDriverService } from '../../services/analytics-service.service
   styleUrls: ['./pie-chart.component.css']
 })
 export class PieChartComponent implements OnInit, OnChanges {
+
   @ViewChild('pieCanvas', { static: true }) pieCanvas!: ElementRef<HTMLCanvasElement>;
   @Input() conductorId!: number; // 👈 Recibe el ID del conductor
 
   public chart!: Chart;
 
-  constructor(private driverService: AnalyticsDriverService) {
+  constructor(private driverService: AnalyticsServiceService) {
     Chart.register(PieController, ArcElement, Tooltip, Legend, Title);
   }
 
@@ -71,7 +73,7 @@ export class PieChartComponent implements OnInit, OnChanges {
           plugins: {
             title: {
               display: true,
-              text: 'Distribución de incidentes'
+              text: 'Distribution of incidents'
             }
           }
         }

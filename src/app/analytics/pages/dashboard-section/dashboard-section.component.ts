@@ -1,3 +1,4 @@
+
 import {Component, OnInit} from '@angular/core';
 import {PieChartComponent} from '../../components/pie-chart/pie-chart.component';
 import {LineChartComponent} from '../../components/line-chart/line-chart.component';
@@ -9,10 +10,15 @@ import {MatSelect} from '@angular/material/select';
 import {MatOption} from '@angular/material/core';
 import {UserService} from '../../services/user.service';
 
+
 @Component({
   selector: 'app-dashboard-section',
+  standalone: true,
   imports: [
-    PieChartComponent,
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
     LineChartComponent,
     BarChartComponent,
     NgForOf,
@@ -21,11 +27,13 @@ import {UserService} from '../../services/user.service';
     MatSelect,
     FormsModule,
     MatOption,
+
   ],
   templateUrl: './dashboard-section.component.html',
-  styleUrl: './dashboard-section.component.css'
+  styleUrls: ['./dashboard-section.component.css'],
 })
 export class DashboardSectionComponent implements OnInit {
+
 
   conductores: { id: number, nombre: string }[] = [];
 
@@ -47,6 +55,10 @@ export class DashboardSectionComponent implements OnInit {
   onConductorChange(selectedId: number): void {
     this.selectedConductorId = selectedId;
     console.log('Conductor seleccionado:', selectedId);
+
   }
 
+  onDriverChange(): void {
+    // Los componentes hijos se actualizarán automáticamente cuando cambie selectedDriverId
+  }
 }

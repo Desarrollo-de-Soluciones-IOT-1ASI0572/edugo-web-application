@@ -1,0 +1,28 @@
+<div class="student-profile">
+  <h2>{{ "STUDENT_DETAIL.PROFILE_TITLE" | translate }}</h2>
+  <div class="profile-card">
+    <img [src]="student.photoUrl" alt="{{ student.name }}" />
+    <div class="student-info">
+      <p>
+        <strong>{{ "STUDENT_DETAIL.NAME" | translate }}:</strong>
+        {{ student.name }}
+      </p>
+      <p>
+        <strong>{{ "STUDENT_DETAIL.SCHOOL" | translate }}:</strong>
+        {{ student.school }}
+      </p>
+      <p>
+        <strong>{{ "STUDENT_DETAIL.DEGREE" | translate }}:</strong>
+        {{ student.degree }}
+      </p>
+      <p>
+        <strong>{{ "STUDENT_DETAIL.RFID_CODE" | translate }}:</strong>
+        {{ student.rfidCode }}
+      </p>
+      <p>
+        <strong>{{ "STUDENT_DETAIL.DRIVER" | translate }}:</strong>
+        {{ driver.name || ("STUDENT_DETAIL.NO_DRIVER_ASSIGNED" | translate) }}
+      </p>
+    </div>
+  </div>
+</div>

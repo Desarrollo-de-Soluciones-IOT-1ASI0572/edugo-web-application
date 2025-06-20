@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef, Input, SimpleChanges, OnChanges} from '@angular/core';
+
 import {
   Chart,
   BarController,
@@ -9,7 +10,7 @@ import {
   Legend,
   Title
 } from 'chart.js';
-import { AnalyticsDriverService } from '../../services/analytics-service.service';
+import { AnalyticsServiceService } from '../../services/analytics-service.service';
 
 @Component({
   selector: 'app-bar-chart',
@@ -19,16 +20,18 @@ import { AnalyticsDriverService } from '../../services/analytics-service.service
   styleUrls: ['./bar-chart.component.css']
 })
 export class BarChartComponent implements OnInit, OnChanges {
+
   @ViewChild('barCanvas', { static: true }) barCanvas!: ElementRef<HTMLCanvasElement>;
   @Input() conductorId!: number;
 
   public chart!: Chart;
 
-  constructor(private driverService: AnalyticsDriverService) {
+  constructor(private driverService: AnalyticsServiceService) {
     Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend, Title);
   }
 
   ngOnInit(): void {
+
     if (this.conductorId) {
       this.loadChartData(this.conductorId);
     }
@@ -45,6 +48,7 @@ export class BarChartComponent implements OnInit, OnChanges {
       const labels = data.speedPerDay.map((item: { day: string }) => item.day);
       const speeds = data.speedPerDay.map((item: { averageSpeed: number }) => item.averageSpeed);
 
+
       const ctx = this.barCanvas.nativeElement.getContext('2d');
       if (!ctx) return console.error('No canvas context available for bar chart');
 
@@ -59,6 +63,7 @@ export class BarChartComponent implements OnInit, OnChanges {
           datasets: [{
             label: 'Velocidad promedio (km/h)',
             data: speeds,
+
             backgroundColor: 'rgba(54, 162, 235, 0.7)'
           }]
         },

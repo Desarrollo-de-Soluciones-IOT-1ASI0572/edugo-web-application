@@ -1,0 +1,44 @@
+{
+  "DASHBOARD": {
+    "MAIN_TITLE": "Dashboard"
+  },
+  "SIDEBAR": {
+    "DASHBOARD": "Dashboard",
+    "DRIVERS_STUDENTS": "Drivers and Students",
+    "REPORTS": "Reports",
+    "LOGOUT": "Log Out"
+  },
+  "BUTTON": {
+    "SEARCH": "Search",
+    "DETAILS": "Details"
+  },
+  "ANALYTICS": {
+    "TITLE": "Drivers Analytics",
+    "SEARCH_LABEL": "Find a driver",
+    "SEARCH_PLACEHOLDER": "Type the driver's name",
+    "DRIVER": "Driver",
+    "DETOURS": "Detours",
+    "DELAYS": "Delays",
+    "SPEEDING": "Speeding",
+    "AVERAGE_ARRIVAL_TIME": "Average Arrival Time",
+    "AVERAGE_DISTANCE": "Average Distance (km)"
+  },
+  "DRIVER_DETAIL": {
+    "PROFILE_TITLE": "Driver Profile",
+    "NAME": "Name",
+    "SCHOOL": "School",
+    "LICENSE_PLATE": "License Plate",
+    "PHONE": "Phone",
+    "LIST_OF_STUDENTS": "List of Students",
+    "BUTTON_DETAILS": "Details"
+  },
+  "STUDENT_DETAIL": {
+    "PROFILE_TITLE": "Student Profile",
+    "NAME": "Name",
+    "SCHOOL": "School",
+    "DEGREE": "Degree",
+    "RFID_CODE": "RFID Wristband Code",
+    "DRIVER": "Driver",
+    "NO_DRIVER_ASSIGNED": "No driver assigned"
+  }
+}
