@@ -20,7 +20,7 @@ import { AnalyticsServiceService } from '../../services/analytics-service.servic
 export class PieChartComponent implements OnInit, OnChanges {
 
   @ViewChild('pieCanvas', { static: true }) pieCanvas!: ElementRef<HTMLCanvasElement>;
-  @Input() conductorId!: number; // 👈 Recibe el ID del conductor
+  @Input() conductorId!: number;
 
   public chart!: Chart;
 

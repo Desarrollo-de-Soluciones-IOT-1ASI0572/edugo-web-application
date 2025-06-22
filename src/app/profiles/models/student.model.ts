@@ -1,21 +1,20 @@
-export class Student {
-  studentId: string;
+export interface Student {
+  id: number;
   name: string;
-  school: string;
-  degree: string;
-  rfidCode: string;
-  photoUrl: string;
-  parentUserId: string;
-  driverUserId: string;
-
-  constructor(data: any) {
-    this.studentId = data.studentId;
-    this.name = data.name;
-    this.school = data.school;
-    this.degree = data.degree;
-    this.rfidCode = data.rfidCode;
-    this.photoUrl = data.photoUrl;
-    this.parentUserId = data.parentUserId;
-    this.driverUserId = data.driverUserId;
-  }
+  lastName: string;
+  homeAddress: string;
+  schoolAddress: string;
+  studentPhotoUrl: string;
+  driverId: number;
+  parentProfile: {
+    id: number;
+    userId: number;
+    fullName: string;
+    email: string;
+    mobileNumber: string;
+    address: string;
+    gender: string;
+    photoUrl: string;
+    role: string;
+  };
 }

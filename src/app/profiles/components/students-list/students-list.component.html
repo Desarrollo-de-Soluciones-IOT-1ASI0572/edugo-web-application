@@ -2,12 +2,8 @@
   <mat-form-field appearance="fill">
     <mat-label>{{ "FILTER.USER_TYPE" | translate }}</mat-label>
     <mat-select [(ngModel)]="selectedUserType">
-      <mat-option value="driver">
-        {{ "FILTER.DRIVER" | translate }}
-      </mat-option>
-      <mat-option value="student">
-        {{ "FILTER.STUDENT" | translate }}
-      </mat-option>
+      <mat-option value="driver">{{ "FILTER.DRIVER" | translate }}</mat-option>
+      <mat-option value="student">{{ "FILTER.STUDENT" | translate }}</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -18,15 +14,14 @@
 
 <div class="user-grid">
   <mat-card class="user-card" *ngFor="let student of students">
-    <img mat-card-image [src]="student.photoUrl" alt="{{ student.name }}" />
+    <img mat-card-image [src]="student.studentPhotoUrl" alt="{{ student.name }} {{ student.lastName }}" />
     <mat-card-content>
-      <h3>{{ student.name }}</h3>
-      <p>{{ student.school }}</p>
-      <p>{{ student.degree }}</p>
+      <h3>{{ student.name }} {{ student.lastName }}</h3>
+      <p>{{ student.schoolAddress }}</p>
       <button
         mat-button
         color="primary"
-        [routerLink]="['/students', student.studentId]"
+        [routerLink]="['/students', student.id]"
       >
         {{ "BUTTON.DETAILS" | translate }}
       </button>

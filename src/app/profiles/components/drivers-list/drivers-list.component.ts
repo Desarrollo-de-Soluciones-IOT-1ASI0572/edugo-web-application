@@ -9,6 +9,8 @@ import { DriverService } from '../../services/driver.service';
 import { Driver } from '../../models/driver.model';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
+import {DriverProfile} from '../../../analytics/models/driver.model';
+import {DriverProfileService} from '../../../analytics/services/driver-profile.service';
 @Component({
   selector: 'app-drivers-list',
   imports: [
@@ -25,25 +27,24 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './drivers-list.component.css',
 })
 export class DriversListComponent {
-  drivers: Driver[] = [];
-
-  constructor(private router: Router, private driverService: DriverService) {}
-
+  drivers: DriverProfile[] = [];
   selectedUserType: string = '';
 
+  constructor(private router: Router, private driverProfileService: DriverProfileService) {}
+
+
   ngOnInit(): void {
-    this.driverService.getDrivers().subscribe((data) => {
+    this.driverProfileService.getDriverProfiles().subscribe((data) => {
       this.drivers = data;
-      console.log(this.drivers);
+      console.log('Driver profiles loaded:', this.drivers);
     });
   }
+
   navigateToUser() {
     console.log('Valor seleccionado: ', this.selectedUserType);
     if (this.selectedUserType === 'driver') {
-      console.log('Navigating to drivers...');
       this.router.navigate(['profiles/drivers']);
     } else if (this.selectedUserType === 'student') {
-      console.log('Navigating to students...');
       this.router.navigate(['profiles/students']);
     } else {
       console.error('No user type selected');

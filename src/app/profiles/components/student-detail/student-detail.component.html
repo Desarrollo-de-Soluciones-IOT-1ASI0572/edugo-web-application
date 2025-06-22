@@ -1,27 +1,23 @@
-<div class="student-profile">
-  <h2>{{ "STUDENT_DETAIL.PROFILE_TITLE" | translate }}</h2>
+<div class="student-profile" *ngIf="student">
+  <h2>{{ 'STUDENT_DETAIL.PROFILE_TITLE' | translate }}</h2>
   <div class="profile-card">
-    <img [src]="student.photoUrl" alt="{{ student.name }}" />
+    <img [src]="student.studentPhotoUrl" alt="{{ student.name }} {{ student.lastName }}" />
     <div class="student-info">
       <p>
-        <strong>{{ "STUDENT_DETAIL.NAME" | translate }}:</strong>
-        {{ student.name }}
+        <strong>{{ 'STUDENT_DETAIL.NAME' | translate }}:</strong>
+        {{ student.name }} {{ student.lastName }}
       </p>
       <p>
-        <strong>{{ "STUDENT_DETAIL.SCHOOL" | translate }}:</strong>
-        {{ student.school }}
+        <strong>{{ 'School adress' | translate }}:</strong>
+        {{ student.schoolAddress }}
       </p>
       <p>
-        <strong>{{ "STUDENT_DETAIL.DEGREE" | translate }}:</strong>
-        {{ student.degree }}
+        <strong>{{ 'Home adress' | translate }}:</strong>
+        {{ student.homeAddress }}
       </p>
-      <p>
-        <strong>{{ "STUDENT_DETAIL.RFID_CODE" | translate }}:</strong>
-        {{ student.rfidCode }}
-      </p>
-      <p>
-        <strong>{{ "STUDENT_DETAIL.DRIVER" | translate }}:</strong>
-        {{ driver.name || ("STUDENT_DETAIL.NO_DRIVER_ASSIGNED" | translate) }}
+      <p *ngIf="student.parentProfile">
+        <strong>{{ 'Parent' | translate }}:</strong>
+        {{ student.parentProfile.fullName }} ({{ student.parentProfile.email }})
       </p>
     </div>
   </div>

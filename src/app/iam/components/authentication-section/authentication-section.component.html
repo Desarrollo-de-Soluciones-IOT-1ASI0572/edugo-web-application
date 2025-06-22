@@ -4,7 +4,7 @@
   <form [formGroup]="form" (ngSubmit)="submit()">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Email</mat-label>
-      <input matInput formControlName="email" type="email" />
+      <input matInput formControlName="username" type="email" />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
@@ -12,7 +12,12 @@
       <input matInput formControlName="password" type="password" />
     </mat-form-field>
 
-    <button mat-raised-button color="primary" class="full-width" type="button" (click)="goToDashboard()">
+    <button
+      mat-raised-button
+      color="primary"
+      class="full-width"
+      type="submit"
+    >
       Iniciar sesión
     </button>
   </form>

@@ -6,15 +6,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatLabel } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AnalyticsServiceService } from '../../services/analytics-service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { DriverAnalytics } from '../../models/driver-analytics.model';
 import { TranslateModule } from '@ngx-translate/core';
+import {DriverProfileService} from '../../services/driver-profile.service';
 
 @Component({
   selector: 'app-report-view',
@@ -35,73 +34,90 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './report-view.component.css',
 })
 export class ReportViewComponent implements OnInit {
-  drivers: DriverAnalytics[] = [];
-  dataSource = new MatTableDataSource<DriverAnalytics>(this.drivers);
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-
   displayedColumns: string[] = [
     'driverName',
     'detour',
     'lateness',
     'speeding',
     'averageArrivalTime',
-    'averageDistance',
+    'averageVelocity',
   ];
-  searchTerm: string = '';
 
-  constructor(private analyticsService: AnalyticsServiceService) {}
+  dataSource = new MatTableDataSource<any>([]);
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
+  constructor(
+    private driverProfileService: DriverProfileService,
+    private analyticsService: AnalyticsServiceService
+  ) {}
 
   ngOnInit() {
-    this.loadData();
+    this.loadDrivers();
   }
 
-  loadData() {
-    this.analyticsService.getDriverAnalytics().subscribe({
-      next: (data) => {
-        this.drivers = data;
-        this.dataSource.data = this.drivers;
+  loadDrivers() {
+    this.driverProfileService.getDriverProfiles().subscribe({
+      next: (profiles) => {
+        const driverData = profiles.map((profile) => ({
+          driverName: profile.fullName,
+          userId: profile.id,
+          detour: 0,
+          lateness: 0,
+          speeding: 0,
+          averageArrivalTime: '--:--',
+          averageVelocity: 0,
+        }));
+
+        this.dataSource.data = driverData;
         this.dataSource.paginator = this.paginator;
-        this.setupFilter();
+
+        driverData.forEach((driver) => {
+          this.analyticsService.getAnalyticsByDriverId(driver.userId).subscribe({
+            next: (analytics) => {
+
+              const speeds = analytics.speedPerDay.map((s: any) => s.averageSpeed);
+              const averageVelocity = speeds.reduce((sum: number, val: number) => sum + val, 0) / speeds.length;
+
+
+              const arrivalTimesInMinutes = analytics.arrivalTimes.map((t: any) => {
+                const [hour, minute] = t.time.split(':').map(Number);
+                return hour * 60 + minute;
+              });
+
+              let averageArrival = '--:--';
+              if (arrivalTimesInMinutes.length > 0) {
+                const avgMinutes = Math.round(
+                  arrivalTimesInMinutes.reduce((sum:number, val:number) => sum + val, 0) / arrivalTimesInMinutes.length
+                );
+                const hours = Math.floor(avgMinutes / 60).toString().padStart(2, '0');
+                const minutes = (avgMinutes % 60).toString().padStart(2, '0');
+                averageArrival = `${hours}:${minutes}`;
+              }
+
+
+              driver.detour = analytics.incidentSummary.detour;
+              driver.lateness = analytics.incidentSummary.lateness;
+              driver.speeding = analytics.incidentSummary.speeding;
+              driver.averageVelocity = Math.round(averageVelocity);
+              driver.averageArrivalTime = averageArrival;
+
+
+              this.dataSource.data = [...this.dataSource.data];
+            },
+            error: (err) => {
+              console.warn(`Error loading analytics for driver ${driver.userId}`, err);
+            },
+          });
+        });
       },
       error: (error) => {
-        console.error('Error al cargar los datos:', error);
+        console.error('Error loading driver profiles:', error);
       },
     });
-  }
-
-  setupFilter() {
-    this.dataSource.filterPredicate = (
-      data: DriverAnalytics,
-      filter: string
-    ) => {
-      const searchStr = filter.toLowerCase();
-      return data.driverName.toLowerCase().includes(searchStr);
-    };
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  getAverageArrivalTime(arrivalTimes: { time: string }[]): string {
-    const times = arrivalTimes.map((at) => {
-      const [hours, minutes] = at.time.split(':').map(Number);
-      return hours * 60 + minutes;
-    });
-    const average = times.reduce((a, b) => a + b, 0) / times.length;
-    const hours = Math.floor(average / 60);
-    const minutes = Math.round(average % 60);
-    return `${hours.toString().padStart(2, '0')}:${minutes
-      .toString()
-      .padStart(2, '0')}`;
-  }
-
-  getAverageDistance(distances: { kilometers: number }[]): number {
-    return Number(
-      (
-        distances.reduce((a, b) => a + b.kilometers, 0) / distances.length
-      ).toFixed(2)
-    );
   }
 }

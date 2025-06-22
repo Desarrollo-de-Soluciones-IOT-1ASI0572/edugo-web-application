@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { Router } from '@angular/router'; // <-- Importa Router
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-authentication-section',
@@ -23,20 +23,23 @@ import { Router } from '@angular/router'; // <-- Importa Router
   styleUrls: ['./authentication-section.component.css']
 })
 export class AuthenticationSectionComponent {
-  @Output() formSubmitted = new EventEmitter<{ email: string; password: string }>();
+  @Output() formSubmitted = new EventEmitter<{ username: string; password: string }>();
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) { // <-- Inyecta Router
+  constructor(private fb: FormBuilder, private router: Router) {
     this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
   submit(): void {
     if (this.form.valid) {
+
       this.formSubmitted.emit(this.form.value);
+    } else {
+      console.log('Formulario inválido');
     }
   }
 

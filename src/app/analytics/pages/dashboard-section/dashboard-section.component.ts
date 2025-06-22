@@ -1,15 +1,15 @@
-
-import {Component, OnInit} from '@angular/core';
-import {PieChartComponent} from '../../components/pie-chart/pie-chart.component';
-import {LineChartComponent} from '../../components/line-chart/line-chart.component';
-import {BarChartComponent} from '../../components/bar-chart/bar-chart.component';
-import {NgForOf} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {MatFormField, MatLabel} from '@angular/material/input';
-import {MatSelect} from '@angular/material/select';
-import {MatOption} from '@angular/material/core';
-import {UserService} from '../../services/user.service';
-
+import { Component, OnInit } from '@angular/core';
+import { PieChartComponent } from '../../components/pie-chart/pie-chart.component';
+import { LineChartComponent } from '../../components/line-chart/line-chart.component';
+import { BarChartComponent } from '../../components/bar-chart/bar-chart.component';
+import { CommonModule, NgForOf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatFormField, MatLabel } from '@angular/material/input';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { DriverProfileService } from '../../services/driver-profile.service'; // ✅ usa el nuevo servicio
+import { DriverProfile } from '../../models/driver.model'; // Asegúrate que exista este modelo
 
 @Component({
   selector: 'app-dashboard-section',
@@ -25,29 +25,28 @@ import {UserService} from '../../services/user.service';
     MatFormField,
     MatLabel,
     MatSelect,
-    FormsModule,
     MatOption,
-
+    PieChartComponent,
   ],
   templateUrl: './dashboard-section.component.html',
   styleUrls: ['./dashboard-section.component.css'],
 })
 export class DashboardSectionComponent implements OnInit {
-
-
   conductores: { id: number, nombre: string }[] = [];
-
 
   selectedConductorId: number = 1;
 
-  constructor(private usuarioService: UserService) {}
-
+  constructor(private driverProfileService: DriverProfileService) {}
 
   ngOnInit(): void {
-    this.usuarioService.obtenerConductores().subscribe(conductores => {
-      this.conductores = conductores;
-      if (conductores.length > 0) {
-        this.selectedConductorId = conductores[0].id;
+    this.driverProfileService.getDriverProfiles().subscribe(perfiles => {
+      this.conductores = perfiles.map(p => ({
+        id: p.id,
+        nombre: p.fullName
+      }));
+
+      if (this.conductores.length > 0) {
+        this.selectedConductorId = this.conductores[0].id;
       }
     });
   }
@@ -55,10 +54,9 @@ export class DashboardSectionComponent implements OnInit {
   onConductorChange(selectedId: number): void {
     this.selectedConductorId = selectedId;
     console.log('Conductor seleccionado:', selectedId);
-
   }
 
   onDriverChange(): void {
-    // Los componentes hijos se actualizarán automáticamente cuando cambie selectedDriverId
+
   }
 }

@@ -1,6 +1,6 @@
 <div class="profile">
   <img
-    src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?semt=ais_hybrid&w=740"
+    [src]="photoUrl || 'https://via.placeholder.com/150'"
     alt="Profile Picture"
     class="profile-picture"
   />
@@ -23,7 +23,7 @@
     <mat-icon>description</mat-icon>
     <span>{{ "SIDEBAR.REPORTS" | translate }}</span>
   </a>
-  <a mat-list-item routerLink="/logout" routerLinkActive="active">
+  <a mat-list-item (click)="logout()">
     <mat-icon>logout</mat-icon>
     <span>{{ "SIDEBAR.LOGOUT" | translate }}</span>
   </a>

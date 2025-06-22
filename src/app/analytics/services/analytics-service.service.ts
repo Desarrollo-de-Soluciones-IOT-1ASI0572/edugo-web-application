@@ -3,19 +3,21 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DriverAnalytics } from '../models/driver-analytics.model';
 
+@Injectable({
+  providedIn: 'root'
+})
+export class AnalyticsServiceService {
+  private baseUrl = 'http://localhost:8080/api/analytics/dashboard';
 
-@Injectable({ providedIn: 'root' })
-export class AnalyticsDriverService {
-  private apiUrl = 'http://localhost:8080/api/analytics/dashboard';
+  constructor(private http: HttpClient) {}
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('auth_token');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
 
-  constructor(private http: HttpClient) { }
-
-
-  getAnalyticsByDriverId(driverId: number): Observable<any> {
-    const token = 'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NTAzNzMxMjQsImV4cCI6MTc1MDk3NzkyNH0.19x4_-UkupHlLvNnbLg3b7reiITi4-pJFkjoi8ccSoMFpE8zZeKeiEzBOwpgIFoS'; 
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const url = `${this.apiUrl}/${driverId}`;
-    return this.http.get<any>(url, { headers });
+  getAnalyticsByDriverId(driverId: number): Observable<DriverAnalytics> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<DriverAnalytics>(`${this.baseUrl}/${driverId}`, { headers });
   }
 }

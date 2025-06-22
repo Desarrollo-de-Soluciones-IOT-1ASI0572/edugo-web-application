@@ -11,6 +11,8 @@ import { Student } from '../../models/student.model';
 import { StudentService } from '../../services/student.service';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
+import {DriverProfile} from '../../../analytics/models/driver.model';
+import {DriverProfileService} from '../../../analytics/services/driver-profile.service';
 
 @Component({
   selector: 'app-driver-detail',
@@ -28,25 +30,24 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './driver-detail.component.css',
 })
 export class DriverDetailComponent {
-  driver!: Driver;
+  driver!: DriverProfile;
   students: Student[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private driverService: DriverService,
+    private driverProfileService: DriverProfileService,
     private studentService: StudentService
   ) {}
 
   ngOnInit(): void {
-    const driverId = this.route.snapshot.paramMap.get('id');
-    this.driverService.getDrivers().subscribe((drivers) => {
-      this.driver = drivers.find((d) => d.userId === driverId) as Driver;
+    const driverId = Number(this.route.snapshot.paramMap.get('id'));
 
-      this.studentService.getStudents().subscribe((students) => {
-        this.students = students.filter((student) =>
-          this.driver.studentIds.includes(student.studentId)
-        );
-      });
+    this.driverProfileService.getDriverProfiles().subscribe((drivers) => {
+      this.driver = drivers.find((d) => d.id === driverId)!;
+    });
+
+    this.studentService.getStudentsByDriverId(driverId).subscribe((students) => {
+      this.students = students;
     });
   }
 }

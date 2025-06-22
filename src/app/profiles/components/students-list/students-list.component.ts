@@ -27,25 +27,24 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class StudentsListComponent {
   students: Student[] = [];
+  selectedUserType: string = '';
 
   constructor(private router: Router, private studentService: StudentService) {}
-  selectedUserType: string = '';
 
   navigateToUser() {
     if (this.selectedUserType === 'driver') {
-      console.log('Navigating to drivers...');
       this.router.navigate(['profiles/drivers']);
     } else if (this.selectedUserType === 'student') {
-      console.log('Navigating to students...');
       this.router.navigate(['profiles/students']);
     } else {
       console.error('No user type selected');
     }
   }
+
   ngOnInit(): void {
-    this.studentService.getStudents().subscribe((data) => {
+    this.studentService.getAllStudents().subscribe((data) => {
       this.students = data;
-      console.log(this.students);
+      console.log('Students loaded:', this.students);
     });
   }
 }
