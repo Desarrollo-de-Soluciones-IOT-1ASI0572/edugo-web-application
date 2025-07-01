@@ -1,0 +1,5 @@
+:host ::ng-deep .fc-event {
+  font-size: 13px;
+  padding: 4px;
+  border-radius: 5px;
+}
