@@ -10,6 +10,11 @@ import {authGuard} from './auth.guard';
 import {CalendarSectionComponent} from './analytics/pages/calendar-section/calendar-section.component';
 import {adminGuard} from './admin.guard';
 import {parentGuard} from './parent.guard';
+import { ParentHomeComponent } from './profiles/pages/parent/parent-home/parent-home.component';
+import { ParentCalendarComponent } from './profiles/pages/parent/parent-calendar/parent-calendar.component';
+import { ParentChildrenComponent } from './profiles/pages/parent/parent-children/parent-children.component';
+import { ParentAccountComponent } from './profiles/pages/parent/parent-account/parent-account.component';
+import { ParentChildDetailComponent } from './profiles/pages/parent/parent-child-detail/parent-child-detail.component';
 
 export const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
@@ -21,6 +26,20 @@ export const routes: Routes = [
   { path: 'drivers/:id', component: DriverDetailComponent, canActivate: [authGuard, adminGuard] },
   { path: 'students/:id', component: StudentDetailComponent, canActivate: [authGuard, adminGuard] },
   { path: 'calendar', component: CalendarSectionComponent, canActivate: [authGuard, parentGuard] },
+
+  // Parent routes
+  {
+    path: 'parent',
+    component: ParentHomeComponent,
+    canActivate: [authGuard, parentGuard],
+    children: [
+      { path: 'calendar', component: ParentCalendarComponent },
+      { path: 'children', component: ParentChildrenComponent },
+      { path: 'children/:id', component: ParentChildDetailComponent },
+      { path: 'account', component: ParentAccountComponent },
+      { path: '', redirectTo: 'calendar', pathMatch: 'full' }
+    ]
+  },
 
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
   { path: '**', redirectTo: 'sign-in' },

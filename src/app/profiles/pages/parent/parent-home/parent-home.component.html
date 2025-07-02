@@ -1,0 +1,13 @@
+<div class="parent-layout">
+  <app-component-header (languageChanged)="handleLanguageChange($event)"></app-component-header>
+  
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav mode="side" opened class="sidenav">
+      <app-component-parent-sidebar></app-component-parent-sidebar>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

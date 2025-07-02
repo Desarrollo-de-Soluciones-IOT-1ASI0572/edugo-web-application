@@ -1,0 +1,110 @@
+<div class="child-detail-container">
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>{{ 'PARENT.CHILD_DETAIL.TITLE' | translate }}</span>
+  </mat-toolbar>
+  
+  <div class="detail-content">
+    <div *ngIf="loading" class="loading-container">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+      <p>{{ 'COMMON.LOADING' | translate }}</p>
+    </div>
+
+    <div *ngIf="!loading && child" class="child-profile">
+      <mat-card class="profile-card">
+        <mat-card-header>
+          <div mat-card-avatar class="child-avatar">
+            <img [src]="child.studentPhotoUrl || 'assets/default-student.png'" 
+                 [alt]="child.name + ' ' + child.lastName">
+          </div>
+          <mat-card-title>{{ child.name }} {{ child.lastName }}</mat-card-title>
+          <mat-card-subtitle>{{ 'COMMON.STUDENT' | translate }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="info-grid">
+            <div class="info-section">
+              <h3>{{ 'PARENT.CHILD_DETAIL.PERSONAL_INFO' | translate }}</h3>
+              
+              <div class="info-item">
+                <mat-icon>person</mat-icon>
+                <div class="info-content">
+                  <span class="label">{{ 'STUDENT_DETAIL.NAME' | translate }}</span>
+                  <span class="value">{{ child.name }} {{ child.lastName }}</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <mat-icon>home</mat-icon>
+                <div class="info-content">
+                  <span class="label">{{ 'PARENT.CHILD_DETAIL.HOME_ADDRESS' | translate }}</span>
+                  <span class="value">{{ child.homeAddress }}</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <mat-icon>school</mat-icon>
+                <div class="info-content">
+                  <span class="label">{{ 'STUDENT_DETAIL.SCHOOL' | translate }}</span>
+                  <span class="value">{{ child.schoolAddress }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-section">
+              <h3>{{ 'PARENT.CHILD_DETAIL.TRANSPORT_INFO' | translate }}</h3>
+              
+              <div class="info-item" *ngIf="child.driverId; else noDriver">
+                <mat-icon>directions_bus</mat-icon>
+                <div class="info-content">
+                  <span class="label">{{ 'STUDENT_DETAIL.DRIVER' | translate }}</span>
+                  <span class="value assigned">{{ 'COMMON.ASSIGNED' | translate }}</span>
+                </div>
+              </div>
+
+              <ng-template #noDriver>
+                <div class="info-item warning">
+                  <mat-icon>warning</mat-icon>
+                  <div class="info-content">
+                    <span class="label">{{ 'STUDENT_DETAIL.DRIVER' | translate }}</span>
+                    <span class="value">{{ 'STUDENT_DETAIL.NO_DRIVER_ASSIGNED' | translate }}</span>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+
+            <div class="info-section" *ngIf="child.parentProfile">
+              <h3>{{ 'PARENT.CHILD_DETAIL.PARENT_INFO' | translate }}</h3>
+              
+              <div class="info-item">
+                <mat-icon>person</mat-icon>
+                <div class="info-content">
+                  <span class="label">{{ 'PARENT.CHILD_DETAIL.PARENT_NAME' | translate }}</span>
+                  <span class="value">{{ child.parentProfile.fullName }}</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <mat-icon>email</mat-icon>
+                <div class="info-content">
+                  <span class="label">{{ 'PARENT.ACCOUNT.EMAIL' | translate }}</span>
+                  <span class="value">{{ child.parentProfile.email }}</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <mat-icon>phone</mat-icon>
+                <div class="info-content">
+                  <span class="label">{{ 'PARENT.ACCOUNT.MOBILE' | translate }}</span>
+                  <span class="value">{{ child.parentProfile.mobileNumber }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

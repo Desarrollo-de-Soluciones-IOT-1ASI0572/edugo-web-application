@@ -46,4 +46,14 @@ export class AuthenticationService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('auth_token');
   }
+
+
+  getCurrentUser(): any {
+    const userStr = localStorage.getItem('current_user');
+    return userStr ? JSON.parse(userStr) : null;
+  }
+
+  getUserRole(): string | null {
+    return localStorage.getItem('user_role');
+  }
 }

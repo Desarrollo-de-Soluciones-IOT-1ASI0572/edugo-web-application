@@ -6,11 +6,57 @@
     "DASHBOARD": "Tablero",
     "DRIVERS_STUDENTS": "Conductores y Estudiantes",
     "REPORTS": "Informes",
+    "CALENDAR": "Calendario",
+    "CHILDREN": "Hijos",
+    "ACCOUNT": "Cuenta",
     "LOGOUT": "Cerrar sesión"
   },
   "BUTTON": {
     "SEARCH": "Buscar",
     "DETAILS": "Detalles"
+  },
+  "COMMON": {
+    "LOADING": "Cargando...",
+    "SAVE": "Guardar",
+    "CANCEL": "Cancelar",
+    "EDIT": "Editar",
+    "ASSIGNED": "Asignado",
+    "STUDENT": "Estudiante"
+  },
+  "VALIDATION": {
+    "REQUIRED": "Este campo es obligatorio",
+    "EMAIL": "Por favor ingrese un email válido"
+  },
+  "PARENT": {
+    "CALENDAR": {
+      "TITLE": "Calendario"
+    },
+    "CHILDREN": {
+      "TITLE": "Mis Hijos",
+      "NO_CHILDREN": "No se encontraron hijos",
+      "NO_CHILDREN_DESCRIPTION": "No hay hijos asignados actualmente a su cuenta."
+    },
+    "ACCOUNT": {
+      "TITLE": "Mi Cuenta",
+      "ROLE": "Padre",
+      "PERSONAL_INFO": "Información Personal",
+      "FULL_NAME": "Nombre Completo",
+      "EMAIL": "Email",
+      "MOBILE": "Número de Móvil",
+      "ADDRESS": "Dirección",
+      "GENDER": "Género",
+      "PHOTO": "Foto de Perfil",
+      "UPLOAD_PHOTO": "Subir Foto",
+      "EDIT": "Editar Perfil"
+    },
+    "CHILD_DETAIL": {
+      "TITLE": "Detalles del Hijo",
+      "PERSONAL_INFO": "Información Personal",
+      "TRANSPORT_INFO": "Información de Transporte",
+      "PARENT_INFO": "Información del Padre",
+      "HOME_ADDRESS": "Dirección de Casa",
+      "PARENT_NAME": "Nombre del Padre"
+    }
   },
   "ANALYTICS": {
     "TITLE": "Análisis de Conductores",
