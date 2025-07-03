@@ -26,6 +26,9 @@ export const routes: Routes = [
   { path: 'drivers/:id', component: DriverDetailComponent, canActivate: [authGuard, adminGuard] },
   { path: 'students/:id', component: StudentDetailComponent, canActivate: [authGuard, adminGuard] },
   { path: 'calendar', component: CalendarSectionComponent, canActivate: [authGuard, parentGuard] },
+  // { path: 'children', component: ParentChildrenComponent, canActivate: [authGuard, parentGuard] },
+  // { path: 'children/:id', component: ParentChildDetailComponent, canActivate: [authGuard, parentGuard] },
+  // { path: 'account', component: ParentAccountComponent, canActivate: [authGuard, parentGuard] },
 
   // Parent routes
   {

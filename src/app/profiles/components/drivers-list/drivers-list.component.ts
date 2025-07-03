@@ -36,12 +36,10 @@ export class DriversListComponent {
   ngOnInit(): void {
     this.driverProfileService.getDriverProfiles().subscribe((data) => {
       this.drivers = data;
-      console.log('Driver profiles loaded:', this.drivers);
     });
   }
 
   navigateToUser() {
-    console.log('Valor seleccionado: ', this.selectedUserType);
     if (this.selectedUserType === 'driver') {
       this.router.navigate(['profiles/drivers']);
     } else if (this.selectedUserType === 'student') {

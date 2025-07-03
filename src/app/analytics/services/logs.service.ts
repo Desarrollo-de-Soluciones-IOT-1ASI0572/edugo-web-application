@@ -33,4 +33,9 @@ export class LogsService {
     const headers = this.getAuthHeaders();
     return this.http.get<LogEntry[]>(this.logsUrl, { headers });
   }
+
+  getLogsByDriverId(driverId: number): Observable<LogEntry[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<LogEntry[]>(`${this.logsUrl}/driver/${driverId}`, { headers });
+  }
 }
