@@ -31,4 +31,10 @@ export class StudentService {
     const headers = this.getAuthHeaders();
     return this.http.get<Student>(`${this.studentsUrl}/${id}`, { headers });
   }
+
+  //Cambiar por el correcto
+  getStudentsByParentId(parentId: number): Observable<Student[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<Student[]>(`${this.studentsUrl}/parent/${parentId}`, { headers });
+  }
 }

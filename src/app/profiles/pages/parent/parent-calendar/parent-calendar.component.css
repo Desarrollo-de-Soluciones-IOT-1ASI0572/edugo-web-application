@@ -1,0 +1,20 @@
+.parent-calendar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.calendar-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #f5f5f5;
+  overflow-y: auto;
+}
+
+mat-toolbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+mat-toolbar mat-icon {
+  margin-right: 10px;
+}

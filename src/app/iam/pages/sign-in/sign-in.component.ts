@@ -19,7 +19,14 @@ export class SignInComponent {
 
   onFormSubmit(credentials: { username: string; password: string }): void {
     this.authService.signIn(credentials.username, credentials.password).subscribe({
-      next: () => this.router.navigate(['analytics/dashboard']),
+      next: () => {
+        const userRole = this.authService.getUserRole();
+        if (userRole === 'parent') {
+          this.router.navigate(['/parent']);
+        } else {
+          this.router.navigate(['/analytics/dashboard']);
+        }
+      },
       error: (err) => console.error('Error en login:', err)
     });
   }

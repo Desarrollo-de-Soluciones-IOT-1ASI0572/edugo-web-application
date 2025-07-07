@@ -6,11 +6,57 @@
     "DASHBOARD": "Dashboard",
     "DRIVERS_STUDENTS": "Drivers and Students",
     "REPORTS": "Reports",
+    "CALENDAR": "Calendar",
+    "CHILDREN": "Children",
+    "ACCOUNT": "Account",
     "LOGOUT": "Log Out"
   },
   "BUTTON": {
     "SEARCH": "Search",
     "DETAILS": "Details"
+  },
+  "COMMON": {
+    "LOADING": "Loading...",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "EDIT": "Edit",
+    "ASSIGNED": "Assigned",
+    "STUDENT": "Student"
+  },
+  "VALIDATION": {
+    "REQUIRED": "This field is required",
+    "EMAIL": "Please enter a valid email"
+  },
+  "PARENT": {
+    "CALENDAR": {
+      "TITLE": "Calendar"
+    },
+    "CHILDREN": {
+      "TITLE": "My Children",
+      "NO_CHILDREN": "No children found",
+      "NO_CHILDREN_DESCRIPTION": "No children are currently assigned to your account."
+    },
+    "ACCOUNT": {
+      "TITLE": "My Account",
+      "ROLE": "Parent",
+      "PERSONAL_INFO": "Personal Information",
+      "FULL_NAME": "Full Name",
+      "EMAIL": "Email",
+      "MOBILE": "Mobile Number",
+      "ADDRESS": "Address",
+      "GENDER": "Gender",
+      "PHOTO": "Profile Photo",
+      "UPLOAD_PHOTO": "Upload Photo",
+      "EDIT": "Edit Profile"
+    },
+    "CHILD_DETAIL": {
+      "TITLE": "Child Details",
+      "PERSONAL_INFO": "Personal Information",
+      "TRANSPORT_INFO": "Transportation Information",
+      "PARENT_INFO": "Parent Information",
+      "HOME_ADDRESS": "Home Address",
+      "PARENT_NAME": "Parent Name"
+    }
   },
   "ANALYTICS": {
     "TITLE": "Drivers Analytics",
