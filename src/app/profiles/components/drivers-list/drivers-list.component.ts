@@ -9,8 +9,11 @@ import { DriverService } from '../../services/driver.service';
 import { Driver } from '../../models/driver.model';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
-import {DriverProfile} from '../../../analytics/models/driver.model';
-import {DriverProfileService} from '../../../analytics/services/driver-profile.service';
+import { DriverProfile } from '../../../analytics/models/driver.model';
+import { DriverProfileService } from '../../../analytics/services/driver-profile.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddStudentModalComponent } from '../add-student-modal/add-student-modal.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-drivers-list',
   imports: [
@@ -30,8 +33,12 @@ export class DriversListComponent {
   drivers: DriverProfile[] = [];
   selectedUserType: string = '';
 
-  constructor(private router: Router, private driverProfileService: DriverProfileService) {}
-
+  constructor(
+    private router: Router,
+    private driverProfileService: DriverProfileService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.driverProfileService.getDriverProfiles().subscribe((data) => {
@@ -47,5 +54,26 @@ export class DriversListComponent {
     } else {
       console.error('No user type selected');
     }
+  }
+
+  openAddStudentModal() {
+    const dialogRef = this.dialog.open(AddStudentModalComponent, {
+      width: '800px',
+      maxHeight: '90vh',
+      disableClose: true,
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.success) {
+        this.snackBar.open('Student and wristband created successfully!', 'Close', {
+          duration: 3000,
+          panelClass: ['success-snackbar']
+        });
+        // Optionally refresh the data or navigate to the new student
+        console.log('New student created:', result.student);
+        console.log('New wristband created:', result.wristband);
+      }
+    });
   }
 }

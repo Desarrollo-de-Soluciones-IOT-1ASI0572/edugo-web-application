@@ -13,7 +13,8 @@
   },
   "BUTTON": {
     "SEARCH": "Search",
-    "DETAILS": "Details"
+    "DETAILS": "Details",
+    "ADD_STUDENT": "Add Student"
   },
   "COMMON": {
     "LOADING": "Loading...",
@@ -86,5 +87,36 @@
     "RFID_CODE": "RFID Wristband Code",
     "DRIVER": "Driver",
     "NO_DRIVER_ASSIGNED": "No driver assigned"
+  },
+  "ADD_STUDENT_MODAL": {
+    "TITLE": "Add New Student",
+    "STUDENT_INFO": "Student Information",
+    "WRISTBAND_INFO": "Wristband Information",
+    "NAME": "Name",
+    "LAST_NAME": "Last Name",
+    "HOME_ADDRESS": "Home Address",
+    "SCHOOL_ADDRESS": "School Address",
+    "PHOTO_URL": "Photo URL",
+    "PARENT_PROFILE_ID": "Parent Profile ID",
+    "DRIVER_ID": "Driver ID",
+    "RFID_CODE": "RFID Code",
+    "WRISTBAND_STATUS": "Wristband Status",
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "SAVING": "Saving...",
+    "NAME_REQUIRED": "Name is required",
+    "NAME_MIN_LENGTH": "Name must be at least 2 characters",
+    "LAST_NAME_REQUIRED": "Last name is required",
+    "LAST_NAME_MIN_LENGTH": "Last name must be at least 2 characters",
+    "HOME_ADDRESS_REQUIRED": "Home address is required",
+    "SCHOOL_ADDRESS_REQUIRED": "School address is required",
+    "PHOTO_URL_REQUIRED": "Photo URL is required",
+    "PARENT_PROFILE_ID_REQUIRED": "Parent Profile ID is required",
+    "DRIVER_ID_REQUIRED": "Driver ID is required",
+    "RFID_CODE_REQUIRED": "RFID Code is required",
+    "RFID_CODE_MIN_LENGTH": "RFID Code must be at least 4 characters",
+    "WRISTBAND_STATUS_REQUIRED": "Wristband Status is required"
   }
 }

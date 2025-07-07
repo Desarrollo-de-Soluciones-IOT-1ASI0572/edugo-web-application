@@ -37,4 +37,19 @@ export class StudentService {
     const headers = this.getAuthHeaders();
     return this.http.get<Student[]>(`${this.studentsUrl}/parent/${parentId}`, { headers });
   }
+
+  createStudent(studentData: CreateStudentRequest): Observable<Student[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.post<Student[]>(this.studentsUrl, studentData, { headers });
+  }
+}
+
+export interface CreateStudentRequest {
+  name: string;
+  lastName: string;
+  homeAddress: string;
+  schoolAddress: string;
+  studentPhotoUrl: string;
+  parentProfileId: number;
+  driverId: number;
 }
