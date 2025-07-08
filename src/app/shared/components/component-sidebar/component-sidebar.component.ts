@@ -31,7 +31,6 @@ export class ComponentSidebarComponent {
         this.photoUrl = profile.photoUrl;
       },
       error: (err) => {
-        console.error('❌ Error cargando perfil del usuario:', err);
       }
     });
   }

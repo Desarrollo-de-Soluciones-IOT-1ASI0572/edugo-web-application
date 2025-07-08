@@ -81,6 +81,8 @@ export class AddStudentModalComponent {
             studentId: createdStudent.id
           };
 
+          console.log('📦 Datos enviados para wristband:', wristbandData);
+
           this.wristbandService.createWristband(wristbandData).subscribe({
             next: (wristbands) => {
               this.isLoading = false;
@@ -88,11 +90,10 @@ export class AddStudentModalComponent {
                 duration: 3000,
                 panelClass: ['success-snackbar']
               });
-              this.dialogRef.close({ success: true, student: createdStudent, wristband: wristbands[0] });
+              this.dialogRef.close({ success: true, student: createdStudent, wristband: wristbands });
             },
             error: (error) => {
               this.isLoading = false;
-              console.error('Error creating wristband:', error);
               this.snackBar.open('Error creating wristband. Please try again.', 'Close', {
                 duration: 3000,
                 panelClass: ['error-snackbar']
@@ -102,7 +103,6 @@ export class AddStudentModalComponent {
         },
         error: (error) => {
           this.isLoading = false;
-          console.error('Error creating student:', error);
           this.snackBar.open('Error creating student. Please try again.', 'Close', {
             duration: 3000,
             panelClass: ['error-snackbar']

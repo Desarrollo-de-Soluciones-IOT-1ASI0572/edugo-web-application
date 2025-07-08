@@ -38,34 +38,41 @@ export class CalendarSectionComponent implements OnInit{
       this.studentService.getStudentsByParentId(parentId).subscribe({
         next: (students: Student[]) => {
           if (students.length > 0) {
-            const driverId = students[0].driverId;
+            const student = students[0];
+            const driverId = student.driverId;
 
-            this.logsService.getLogsByDriverId(driverId).subscribe((logs: LogEntry[]) => {
-              const events: EventInput[] = [];
 
-              logs.forEach((log) => {
-                const date = log.date;
+            if (driverId) {
+              this.logsService.getLogsByDriverId(driverId).subscribe((logs: LogEntry[]) => {
 
-                if (log.incident.lateness) {
-                  events.push({ title: '🕒 Llegó tarde', date, color: '#ffc107' });
-                }
 
-                if (log.incident.speeding) {
-                  events.push({ title: '🚀 Exceso de velocidad', date, color: '#dc3545' });
-                }
+                const events: EventInput[] = [];
 
-                if (log.incident.detour) {
-                  events.push({ title: '🚧 Desvío en la ruta', date, color: '#17a2b8' });
-                }
+                logs.forEach((log) => {
+                  const date = log.date;
 
-                if (!log.incident.lateness && !log.incident.speeding && !log.incident.detour) {
-                  events.push({ title: '✅ A tiempo', date, color: '#28a745' });
-                }
+                  if (log.incident.lateness) {
+                    events.push({ title: '🕒 Llegó tarde', date, color: '#ffc107' });
+                  }
+
+                  if (log.incident.speeding) {
+                    events.push({ title: '🚀 Exceso de velocidad', date, color: '#dc3545' });
+                  }
+
+                  if (log.incident.detour) {
+                    events.push({ title: '🚧 Desvío en la ruta', date, color: '#17a2b8' });
+                  }
+
+                  if (!log.incident.lateness && !log.incident.speeding && !log.incident.detour) {
+                    events.push({ title: '✅ A tiempo', date, color: '#28a745' });
+                  }
+                });
+
+                this.calendarOptions.events = events;
               });
-
-              this.calendarOptions.events = events;
-            });
-
+            } else {
+              console.warn('⚠️ Driver ID no está definido en el estudiante.');
+            }
           } else {
             console.warn('[Calendar] ⚠️ No students found for this parent.');
           }

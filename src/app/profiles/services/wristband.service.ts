@@ -7,7 +7,7 @@ import { Wristband, CreateWristbandRequest } from '../models/wristband.model';
   providedIn: 'root',
 })
 export class WristbandService {
-  private wristbandsUrl = 'http://localhost:8080/api/v1/wristbands';
+  private wristbandsUrl = 'https://edugo-service-de983aa97099.herokuapp.com/api/v1/wristbands';
 
   constructor(private http: HttpClient) {}
 
@@ -16,9 +16,9 @@ export class WristbandService {
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
-  createWristband(wristbandData: CreateWristbandRequest): Observable<Wristband[]> {
+  createWristband(wristbandData: CreateWristbandRequest): Observable<Wristband> {
     const headers = this.getAuthHeaders();
-    return this.http.post<Wristband[]>(this.wristbandsUrl, wristbandData, { headers });
+    return this.http.post<Wristband>(this.wristbandsUrl, wristbandData, { headers });
   }
 
   getAllWristbands(): Observable<Wristband[]> {

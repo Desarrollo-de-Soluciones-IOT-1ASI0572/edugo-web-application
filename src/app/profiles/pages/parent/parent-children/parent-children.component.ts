@@ -40,22 +40,20 @@ export class ParentChildrenComponent implements OnInit {
   }
 
   loadParentChildren(): void {
-    // Obtener el ID del usuario logueado y buscar sus hijos
-    const currentUser = this.authService.getCurrentUser();
-    if (currentUser && currentUser.id) {
-      this.parentId = currentUser.id;
+    const profileId = this.authService.getProfileId(); // ← Usamos el profile_id
+
+    if (profileId) {
+      this.parentId = parseInt(profileId, 10);
       this.studentService.getStudentsByParentId(this.parentId).subscribe({
         next: (students: Student[]) => {
           this.children = students;
           this.loading = false;
         },
         error: (error: any) => {
-          console.error('Error loading children:', error);
           this.loading = false;
         }
       });
     } else {
-      console.error('No current user found');
       this.loading = false;
     }
   }

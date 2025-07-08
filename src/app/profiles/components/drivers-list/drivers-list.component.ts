@@ -70,9 +70,6 @@ export class DriversListComponent {
           duration: 3000,
           panelClass: ['success-snackbar']
         });
-        // Optionally refresh the data or navigate to the new student
-        console.log('New student created:', result.student);
-        console.log('New wristband created:', result.wristband);
       }
     });
   }
