@@ -8,7 +8,7 @@ import {UserProfile} from '../models/profile.model';
   providedIn: 'root'
 })
 export class ProfilesManagementService {
-  private baseUrl = 'http://localhost:8080/api/v1/profiles/user';
+  private baseUrl = 'https://edugo-service-de983aa97099.herokuapp.com/api/v1/profiles/user';
 
   constructor(private http: HttpClient) {}
 

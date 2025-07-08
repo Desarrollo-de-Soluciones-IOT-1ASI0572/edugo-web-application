@@ -50,7 +50,6 @@ export class PieChartComponent implements OnInit, OnChanges {
 
       const ctx = this.pieCanvas.nativeElement.getContext('2d');
       if (!ctx) {
-        console.error('No canvas context for pie chart');
         return;
       }
 

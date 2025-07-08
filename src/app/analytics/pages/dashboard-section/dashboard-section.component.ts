@@ -9,7 +9,8 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DriverProfileService } from '../../services/driver-profile.service'; // ✅ usa el nuevo servicio
-import { DriverProfile } from '../../models/driver.model'; // Asegúrate que exista este modelo
+import { DriverProfile } from '../../models/driver.model';
+import {AnalyticsServiceService} from '../../services/analytics-service.service'; // Asegúrate que exista este modelo
 
 @Component({
   selector: 'app-dashboard-section',
@@ -36,7 +37,7 @@ export class DashboardSectionComponent implements OnInit {
 
   selectedConductorId: number = 1;
 
-  constructor(private driverProfileService: DriverProfileService) {}
+  constructor(private driverProfileService: DriverProfileService, private analyticsService: AnalyticsServiceService) {}
 
   ngOnInit(): void {
     this.driverProfileService.getDriverProfiles().subscribe(perfiles => {
@@ -47,6 +48,9 @@ export class DashboardSectionComponent implements OnInit {
 
       if (this.conductores.length > 0) {
         this.selectedConductorId = this.conductores[0].id;
+
+        this.analyticsService.syncAnalyticsLogsForDriver(this.selectedConductorId);
+
       }
     });
   }
@@ -54,6 +58,9 @@ export class DashboardSectionComponent implements OnInit {
   onConductorChange(selectedId: number): void {
     this.selectedConductorId = selectedId;
     console.log('Conductor seleccionado:', selectedId);
+
+    this.analyticsService.syncAnalyticsLogsForDriver(selectedId);
+
   }
 
   onDriverChange(): void {

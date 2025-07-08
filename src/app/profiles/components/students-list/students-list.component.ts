@@ -44,7 +44,6 @@ export class StudentsListComponent {
   ngOnInit(): void {
     this.studentService.getAllStudents().subscribe((data) => {
       this.students = data;
-      console.log('Students loaded:', this.students);
     });
   }
 }

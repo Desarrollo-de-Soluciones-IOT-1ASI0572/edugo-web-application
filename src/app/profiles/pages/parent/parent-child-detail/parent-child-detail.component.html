@@ -5,7 +5,7 @@
     </button>
     <span>{{ 'PARENT.CHILD_DETAIL.TITLE' | translate }}</span>
   </mat-toolbar>
-  
+
   <div class="detail-content">
     <div *ngIf="loading" class="loading-container">
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
@@ -16,7 +16,7 @@
       <mat-card class="profile-card">
         <mat-card-header>
           <div mat-card-avatar class="child-avatar">
-            <img [src]="child.studentPhotoUrl || 'assets/default-student.png'" 
+            <img [src]="child.studentPhotoUrl || 'assets/default-student.png'"
                  [alt]="child.name + ' ' + child.lastName">
           </div>
           <mat-card-title>{{ child.name }} {{ child.lastName }}</mat-card-title>
@@ -27,7 +27,7 @@
           <div class="info-grid">
             <div class="info-section">
               <h3>{{ 'PARENT.CHILD_DETAIL.PERSONAL_INFO' | translate }}</h3>
-              
+
               <div class="info-item">
                 <mat-icon>person</mat-icon>
                 <div class="info-content">
@@ -55,7 +55,7 @@
 
             <div class="info-section">
               <h3>{{ 'PARENT.CHILD_DETAIL.TRANSPORT_INFO' | translate }}</h3>
-              
+
               <div class="info-item" *ngIf="child.driverId; else noDriver">
                 <mat-icon>directions_bus</mat-icon>
                 <div class="info-content">
@@ -75,14 +75,14 @@
               </ng-template>
             </div>
 
-            <div class="info-section" *ngIf="child.parentProfile">
+            <div class="info-section" *ngIf="userProfile">
               <h3>{{ 'PARENT.CHILD_DETAIL.PARENT_INFO' | translate }}</h3>
-              
+
               <div class="info-item">
                 <mat-icon>person</mat-icon>
                 <div class="info-content">
                   <span class="label">{{ 'PARENT.CHILD_DETAIL.PARENT_NAME' | translate }}</span>
-                  <span class="value">{{ child.parentProfile.fullName }}</span>
+                  <span class="value">{{ userProfile.fullName }}</span>
                 </div>
               </div>
 
@@ -90,7 +90,7 @@
                 <mat-icon>email</mat-icon>
                 <div class="info-content">
                   <span class="label">{{ 'PARENT.ACCOUNT.EMAIL' | translate }}</span>
-                  <span class="value">{{ child.parentProfile.email }}</span>
+                  <span class="value">{{ userProfile.email }}</span>
                 </div>
               </div>
 
@@ -98,7 +98,7 @@
                 <mat-icon>phone</mat-icon>
                 <div class="info-content">
                   <span class="label">{{ 'PARENT.ACCOUNT.MOBILE' | translate }}</span>
-                  <span class="value">{{ child.parentProfile.mobileNumber }}</span>
+                  <span class="value">{{ userProfile.mobileNumber }}</span>
                 </div>
               </div>
             </div>

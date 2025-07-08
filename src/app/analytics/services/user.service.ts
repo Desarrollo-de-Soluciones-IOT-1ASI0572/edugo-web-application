@@ -7,7 +7,7 @@ import {User} from '../models/user.model';
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:8080/api/v1/profiles/role/role_driver';
+  private baseUrl = 'https://edugo-service-de983aa97099.herokuapp.com/api/v1/profiles/role/role_driver';
 
   constructor(private http: HttpClient) {}
 

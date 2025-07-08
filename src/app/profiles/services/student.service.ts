@@ -8,7 +8,7 @@ import { Student } from '../models/student.model';
   providedIn: 'root',
 })
 export class StudentService {
-  private studentsUrl = 'http://localhost:8080/api/v1/students';
+  private studentsUrl = 'https://edugo-service-de983aa97099.herokuapp.com/api/v1/students';
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +19,7 @@ export class StudentService {
 
   getAllStudents(): Observable<Student[]> {
     const headers = this.getAuthHeaders();
-    return this.http.get<Student[]>(`${this.studentsUrl}/all`, { headers });
+    return this.http.get<Student[]>(this.studentsUrl, { headers });
   }
 
   getStudentsByDriverId(driverId: number): Observable<Student[]> {
@@ -37,4 +37,19 @@ export class StudentService {
     const headers = this.getAuthHeaders();
     return this.http.get<Student[]>(`${this.studentsUrl}/parent/${parentId}`, { headers });
   }
+
+  createStudent(studentData: CreateStudentRequest): Observable<Student[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.post<Student[]>(this.studentsUrl, studentData, { headers });
+  }
+}
+
+export interface CreateStudentRequest {
+  name: string;
+  lastName: string;
+  homeAddress: string;
+  schoolAddress: string;
+  studentPhotoUrl: string;
+  parentProfileId: number;
+  driverId: number;
 }

@@ -4,8 +4,9 @@ import {Observable, switchMap, tap} from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private authUrl = 'http://localhost:8080/api/v1/authentication/sign-in';
-  private userUrl = 'http://localhost:8080/api/v1/users';
+  private authUrl = 'https://edugo-service-de983aa97099.herokuapp.com/api/v1/authentication/sign-in';
+  private userUrl = 'https://edugo-service-de983aa97099.herokuapp.com/api/v1/users';
+  private profileUrl = 'https://edugo-service-de983aa97099.herokuapp.com/api/v1/profiles/user';
 
   constructor(private http: HttpClient) {}
 
@@ -13,7 +14,7 @@ export class AuthenticationService {
     return this.http.post<{ id: number; username: string; token: string }>(this.authUrl, { username, password }).pipe(
       tap((response) => {
         localStorage.setItem('auth_token', response.token);
-        localStorage.setItem('user_id', response.id.toString());
+        localStorage.setItem('user_id', response.id.toString()); // ✅ Se mantiene
       }),
       switchMap((response) => {
         const token = localStorage.getItem('auth_token');
@@ -25,10 +26,30 @@ export class AuthenticationService {
           `${this.userUrl}/${response.id}`,
           { headers }
         ).pipe(
-          tap((user) => {
+          switchMap((user) => {
             const role = user.roles.includes('ROLE_ADMIN') ? 'admin' : 'parent';
             localStorage.setItem('user_role', role);
             localStorage.setItem('current_user', JSON.stringify({ id: user.id, username: user.username, role }));
+
+            // ✅ Obtener y guardar el profile_id adicionalmente
+            return this.http.get<{
+              id: number;
+              userId: number;
+              fullName: string;
+              email: string;
+              mobileNumber: string;
+              address: string;
+              gender: string;
+              photoUrl: string;
+              role: string;
+            }>(
+              `${this.profileUrl}/${user.id}`,
+              { headers }
+            ).pipe(
+              tap((profile) => {
+                localStorage.setItem('profile_id', profile.id.toString()); // 🔥 Aquí lo agregamos
+              })
+            );
           })
         );
       })
@@ -41,6 +62,10 @@ export class AuthenticationService {
 
   logout(): void {
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('profile_id');
+    localStorage.removeItem('user_role');
+    localStorage.removeItem('current_user');
   }
 
   isLoggedIn(): boolean {
@@ -55,5 +80,9 @@ export class AuthenticationService {
 
   getUserRole(): string | null {
     return localStorage.getItem('user_role');
+  }
+
+  getProfileId(): string | null {
+    return localStorage.getItem('profile_id');
   }
 }

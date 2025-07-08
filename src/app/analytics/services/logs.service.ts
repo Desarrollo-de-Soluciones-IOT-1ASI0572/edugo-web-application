@@ -20,7 +20,7 @@ export interface LogEntry {
 
 @Injectable({ providedIn: 'root' })
 export class LogsService {
-  private logsUrl = 'http://localhost:8080/api/analytics/logs';
+  private logsUrl = 'https://edugo-service-de983aa97099.herokuapp.com/api/v1/analytics/logs';
 
   constructor(private http: HttpClient) {}
 

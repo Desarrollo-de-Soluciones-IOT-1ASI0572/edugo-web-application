@@ -7,7 +7,7 @@ import { DriverProfile } from '../models/driver.model';
   providedIn: 'root'
 })
 export class DriverProfileService {
-  private profilesUrl = 'http://localhost:8080/api/v1/profiles/role/role_driver';
+  private profilesUrl = 'https://edugo-service-de983aa97099.herokuapp.com/api/v1/profiles/role/role_driver';
 
   constructor(private http: HttpClient) {}
 

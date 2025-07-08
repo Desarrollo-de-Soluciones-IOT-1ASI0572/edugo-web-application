@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Student } from '../../../models/student.model';
 import { StudentService } from '../../../services/student.service';
+import {ProfilesManagementService} from '../../../services/profiles-management.service';
+import {UserProfile} from '../../../models/profile.model';
 
 @Component({
   selector: 'app-parent-child-detail',
@@ -30,18 +32,21 @@ export class ParentChildDetailComponent implements OnInit {
   child!: Student;
   loading = true;
   childId!: number;
+  userProfile!: UserProfile;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private profileService: ProfilesManagementService
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.childId = +params['id'];
       this.loadChildDetails();
+      this.loadParentProfile();
     });
   }
 
@@ -54,6 +59,17 @@ export class ParentChildDetailComponent implements OnInit {
       error: (error: any) => {
         console.error('Error loading child details:', error);
         this.loading = false;
+      }
+    });
+  }
+
+  loadParentProfile(): void {
+    this.profileService.getLoggedInUserProfile().subscribe({
+      next: (profile: UserProfile) => {
+        this.userProfile = profile;
+      },
+      error: (error: any) => {
+        console.error('Error loading parent profile:', error);
       }
     });
   }
