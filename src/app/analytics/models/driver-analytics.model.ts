@@ -1,23 +1,23 @@
 export interface DriverAnalytics {
-    driverUserId: string;
-    driverName: string;
-    incidentSummary: IncidentSummary;
-    arrivalTimesAtSchool: ArrivalTime[];
-    distanceTraveled: DistanceTraveled[];
+  driverUserId: number;
+  week: string;
+  speedPerDay: SpeedPerDay[];
+  arrivalTimes: ArrivalTime[];
+  incidentSummary: IncidentSummary;
 }
 
-export interface IncidentSummary {
-    detour: number;
-    lateness: number;
-    speeding: number;
+export interface SpeedPerDay {
+  day: string;
+  averageSpeed: number;
 }
 
 export interface ArrivalTime {
-    date: string;
-    time: string;
+  day: string;
+  time: string;
 }
 
-export interface DistanceTraveled {
-    date: string;
-    kilometers: number;
-} 
+export interface IncidentSummary {
+  detour: number;
+  lateness: number;
+  speeding: number;
+}

@@ -1,0 +1,69 @@
+<div class="parent-account-container">
+  <div class="account-content">
+    <div *ngIf="loading" class="loading-container">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+      <p>{{ 'COMMON.LOADING' | translate }}</p>
+    </div>
+
+    <div *ngIf="!loading && userProfile" class="profile-container">
+      <mat-card class="profile-card">
+        <mat-card-header>
+          <div mat-card-avatar class="profile-avatar">
+            <img [src]="userProfile.photoUrl || 'https://via.placeholder.com/150'" 
+                 [alt]="userProfile.fullName">
+          </div>
+          <mat-card-title>{{ userProfile.fullName }}</mat-card-title>
+          <mat-card-subtitle>{{ 'PARENT.ACCOUNT.ROLE' | translate }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="profile-info">
+            <div class="info-section">
+              <h3>{{ 'PARENT.ACCOUNT.PERSONAL_INFO' | translate }}</h3>
+              
+              <div class="info-item">
+                <mat-icon>person</mat-icon>
+                <div class="info-content">
+                  <span class="label">{{ 'PARENT.ACCOUNT.FULL_NAME' | translate }}</span>
+                  <span class="value">{{ userProfile.fullName }}</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <mat-icon>email</mat-icon>
+                <div class="info-content">
+                  <span class="label">{{ 'PARENT.ACCOUNT.EMAIL' | translate }}</span>
+                  <span class="value">{{ userProfile.email }}</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <mat-icon>phone</mat-icon>
+                <div class="info-content">
+                  <span class="label">{{ 'PARENT.ACCOUNT.MOBILE' | translate }}</span>
+                  <span class="value">{{ userProfile.mobileNumber }}</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <mat-icon>home</mat-icon>
+                <div class="info-content">
+                  <span class="label">{{ 'PARENT.ACCOUNT.ADDRESS' | translate }}</span>
+                  <span class="value">{{ userProfile.address }}</span>
+                </div>
+              </div>
+
+              <div class="info-item" *ngIf="userProfile.gender">
+                <mat-icon>person_outline</mat-icon>
+                <div class="info-content">
+                  <span class="label">{{ 'PARENT.ACCOUNT.GENDER' | translate }}</span>
+                  <span class="value">{{ userProfile.gender }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

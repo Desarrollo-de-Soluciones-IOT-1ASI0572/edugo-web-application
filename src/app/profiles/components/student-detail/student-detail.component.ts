@@ -15,24 +15,17 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class StudentDetailComponent {
   student!: Student;
-  driver!: Driver;
 
   constructor(
     private route: ActivatedRoute,
-    private studentService: StudentService,
-    private driverService: DriverService
+    private studentService: StudentService
   ) {}
 
   ngOnInit(): void {
-    const studentId = this.route.snapshot.paramMap.get('id');
-    this.studentService.getStudents().subscribe((students) => {
-      this.student = students.find((s) => s.studentId === studentId) as Student;
-
-      this.driverService.getDrivers().subscribe((drivers) => {
-        this.driver = drivers.find(
-          (d) => d.userId === this.student.driverUserId
-        ) as Driver;
-      });
+    const studentId = Number(this.route.snapshot.paramMap.get('id'));
+    this.studentService.getStudentById(studentId).subscribe((data) => {
+      this.student = data;
+      console.log('Student details:', this.student);
     });
   }
 }

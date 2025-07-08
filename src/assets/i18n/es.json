@@ -6,11 +6,58 @@
     "DASHBOARD": "Tablero",
     "DRIVERS_STUDENTS": "Conductores y Estudiantes",
     "REPORTS": "Informes",
+    "CALENDAR": "Calendario",
+    "CHILDREN": "Hijos",
+    "ACCOUNT": "Cuenta",
     "LOGOUT": "Cerrar sesión"
   },
   "BUTTON": {
     "SEARCH": "Buscar",
-    "DETAILS": "Detalles"
+    "DETAILS": "Detalles",
+    "ADD_STUDENT": "Agregar Estudiante"
+  },
+  "COMMON": {
+    "LOADING": "Cargando...",
+    "SAVE": "Guardar",
+    "CANCEL": "Cancelar",
+    "EDIT": "Editar",
+    "ASSIGNED": "Asignado",
+    "STUDENT": "Estudiante"
+  },
+  "VALIDATION": {
+    "REQUIRED": "Este campo es obligatorio",
+    "EMAIL": "Por favor ingrese un email válido"
+  },
+  "PARENT": {
+    "CALENDAR": {
+      "TITLE": "Calendario"
+    },
+    "CHILDREN": {
+      "TITLE": "Mis Hijos",
+      "NO_CHILDREN": "No se encontraron hijos",
+      "NO_CHILDREN_DESCRIPTION": "No hay hijos asignados actualmente a su cuenta."
+    },
+    "ACCOUNT": {
+      "TITLE": "Mi Cuenta",
+      "ROLE": "Padre",
+      "PERSONAL_INFO": "Información Personal",
+      "FULL_NAME": "Nombre Completo",
+      "EMAIL": "Email",
+      "MOBILE": "Número de Móvil",
+      "ADDRESS": "Dirección",
+      "GENDER": "Género",
+      "PHOTO": "Foto de Perfil",
+      "UPLOAD_PHOTO": "Subir Foto",
+      "EDIT": "Editar Perfil"
+    },
+    "CHILD_DETAIL": {
+      "TITLE": "Detalles del Hijo",
+      "PERSONAL_INFO": "Información Personal",
+      "TRANSPORT_INFO": "Información de Transporte",
+      "PARENT_INFO": "Información del Padre",
+      "HOME_ADDRESS": "Dirección de Casa",
+      "PARENT_NAME": "Nombre del Padre"
+    }
   },
   "ANALYTICS": {
     "TITLE": "Análisis de Conductores",
@@ -40,5 +87,36 @@
     "RFID_CODE": "Código de Pulsera RFID",
     "DRIVER": "Conductor",
     "NO_DRIVER_ASSIGNED": "No tiene un conductor asignado"
+  },
+  "ADD_STUDENT_MODAL": {
+    "TITLE": "Agregar Nuevo Estudiante",
+    "STUDENT_INFO": "Información del Estudiante",
+    "WRISTBAND_INFO": "Información de la Pulsera",
+    "NAME": "Nombre",
+    "LAST_NAME": "Apellido",
+    "HOME_ADDRESS": "Dirección de Casa",
+    "SCHOOL_ADDRESS": "Dirección de la Escuela",
+    "PHOTO_URL": "URL de Foto",
+    "PARENT_PROFILE_ID": "ID del Perfil del Padre",
+    "DRIVER_ID": "ID del Conductor",
+    "RFID_CODE": "Código RFID",
+    "WRISTBAND_STATUS": "Estado de la Pulsera",
+    "ACTIVE": "Activo",
+    "INACTIVE": "Inactivo",
+    "SAVE": "Guardar",
+    "CANCEL": "Cancelar",
+    "SAVING": "Guardando...",
+    "NAME_REQUIRED": "El nombre es requerido",
+    "NAME_MIN_LENGTH": "El nombre debe tener al menos 2 caracteres",
+    "LAST_NAME_REQUIRED": "El apellido es requerido",
+    "LAST_NAME_MIN_LENGTH": "El apellido debe tener al menos 2 caracteres",
+    "HOME_ADDRESS_REQUIRED": "La dirección de casa es requerida",
+    "SCHOOL_ADDRESS_REQUIRED": "La dirección de la escuela es requerida",
+    "PHOTO_URL_REQUIRED": "La URL de la foto es requerida",
+    "PARENT_PROFILE_ID_REQUIRED": "El ID del perfil del padre es requerido",
+    "DRIVER_ID_REQUIRED": "El ID del conductor es requerido",
+    "RFID_CODE_REQUIRED": "El código RFID es requerido",
+    "RFID_CODE_MIN_LENGTH": "El código RFID debe tener al menos 4 caracteres",
+    "WRISTBAND_STATUS_REQUIRED": "El estado de la pulsera es requerido"
   }
 }

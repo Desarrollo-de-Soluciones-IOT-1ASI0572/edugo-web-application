@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
+import { PieChartComponent } from '../../components/pie-chart/pie-chart.component';
 import { LineChartComponent } from '../../components/line-chart/line-chart.component';
 import { BarChartComponent } from '../../components/bar-chart/bar-chart.component';
-import { PieChartComponent } from '../../components/pie-chart/pie-chart.component';
-import { AnalyticsServiceService } from '../../services/analytics-service.service';
-import { DriverAnalytics } from '../../models/driver-analytics.model';
-import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule, NgForOf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatFormField, MatLabel } from '@angular/material/input';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { DriverProfileService } from '../../services/driver-profile.service'; // ✅ usa el nuevo servicio
+import { DriverProfile } from '../../models/driver.model';
+import {AnalyticsServiceService} from '../../services/analytics-service.service'; // Asegúrate que exista este modelo
 
 @Component({
   selector: 'app-dashboard-section',
@@ -20,29 +22,48 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     LineChartComponent,
     BarChartComponent,
+    NgForOf,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
     PieChartComponent,
-    TranslateModule,
   ],
   templateUrl: './dashboard-section.component.html',
   styleUrls: ['./dashboard-section.component.css'],
 })
 export class DashboardSectionComponent implements OnInit {
-  drivers: DriverAnalytics[] = [];
-  selectedDriverId: string = '';
+  conductores: { id: number, nombre: string }[] = [];
 
-  constructor(private analyticsService: AnalyticsServiceService) {}
+  selectedConductorId: number = 1;
+
+  constructor(private driverProfileService: DriverProfileService, private analyticsService: AnalyticsServiceService) {}
 
   ngOnInit(): void {
-    this.loadDrivers();
-  }
+    this.driverProfileService.getDriverProfiles().subscribe(perfiles => {
+      this.conductores = perfiles.map(p => ({
+        id: p.id,
+        nombre: p.fullName
+      }));
 
-  loadDrivers(): void {
-    this.analyticsService.getDriverAnalytics().subscribe((data) => {
-      this.drivers = data;
+      if (this.conductores.length > 0) {
+        this.selectedConductorId = this.conductores[0].id;
+
+        this.analyticsService.syncAnalyticsLogsForDriver(this.selectedConductorId);
+
+      }
     });
   }
 
+  onConductorChange(selectedId: number): void {
+    this.selectedConductorId = selectedId;
+    console.log('Conductor seleccionado:', selectedId);
+
+    this.analyticsService.syncAnalyticsLogsForDriver(selectedId);
+
+  }
+
   onDriverChange(): void {
-    // Los componentes hijos se actualizarán automáticamente cuando cambie selectedDriverId
+
   }
 }

@@ -1,21 +1,28 @@
 <div class="main-layout" *ngIf="shouldShowLayout()">
-  <app-component-header
-    (languageChanged)="handleLanguageChange($event)"
-  ></app-component-header>
+  <!-- Layout para Parent con su propio sidebar -->
+  <ng-container *ngIf="isParent(); else adminLayout">
+    <router-outlet></router-outlet>
+  </ng-container>
 
-  <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav mode="side" opened class="sidenav">
-      <app-component-sidebar [userName]="'Alex Moeira'" [userRole]="'Admin'">
-      </app-component-sidebar>
-    </mat-sidenav>
+  <!-- Layout para Admin -->
+  <ng-template #adminLayout>
+    <app-component-header
+      (languageChanged)="handleLanguageChange($event)"
+    ></app-component-header>
 
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+    <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav mode="side" opened class="sidenav">
+        <app-component-sidebar></app-component-sidebar>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </ng-template>
 </div>
 
-<!-- Mostrar solo contenido para rutas como /login -->
+<!-- Mostrar solo contenido para rutas como /sign-in -->
 <div *ngIf="!shouldShowLayout()">
   <router-outlet></router-outlet>
 </div>

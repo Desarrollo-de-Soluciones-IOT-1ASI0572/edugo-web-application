@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Student } from '../models/student.model';
@@ -8,13 +8,48 @@ import { Student } from '../models/student.model';
   providedIn: 'root',
 })
 export class StudentService {
-  private apiUrl = 'https://jdu202012207.github.io/pruebas-api/students.json';
+  private studentsUrl = 'https://edugo-service-de983aa97099.herokuapp.com/api/v1/students';
 
   constructor(private http: HttpClient) {}
 
-  getStudents(): Observable<Student[]> {
-    return this.http
-      .get<Student[]>(this.apiUrl)
-      .pipe(map((data: any[]) => data.map((item) => new Student(item))));
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('auth_token');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
+
+  getAllStudents(): Observable<Student[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<Student[]>(this.studentsUrl, { headers });
+  }
+
+  getStudentsByDriverId(driverId: number): Observable<Student[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<Student[]>(`${this.studentsUrl}/driver/${driverId}`, { headers });
+  }
+
+  getStudentById(id: number): Observable<Student> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<Student>(`${this.studentsUrl}/${id}`, { headers });
+  }
+
+  //Cambiar por el correcto
+  getStudentsByParentId(parentId: number): Observable<Student[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<Student[]>(`${this.studentsUrl}/parent/${parentId}`, { headers });
+  }
+
+  createStudent(studentData: CreateStudentRequest): Observable<Student[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.post<Student[]>(this.studentsUrl, studentData, { headers });
+  }
+}
+
+export interface CreateStudentRequest {
+  name: string;
+  lastName: string;
+  homeAddress: string;
+  schoolAddress: string;
+  studentPhotoUrl: string;
+  parentProfileId: number;
+  driverId: number;
 }

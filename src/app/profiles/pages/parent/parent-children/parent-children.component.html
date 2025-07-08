@@ -1,0 +1,51 @@
+<div class="parent-children-container">
+  <div class="children-content">
+    <div *ngIf="loading" class="loading-container">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+      <p>{{ 'COMMON.LOADING' | translate }}</p>
+    </div>
+
+    <div *ngIf="!loading && children.length === 0" class="no-children">
+      <mat-icon>info</mat-icon>
+      <h3>{{ 'PARENT.CHILDREN.NO_CHILDREN' | translate }}</h3>
+      <p>{{ 'PARENT.CHILDREN.NO_CHILDREN_DESCRIPTION' | translate }}</p>
+    </div>
+
+    <div *ngIf="!loading && children.length > 0" class="children-grid">
+      <mat-card *ngFor="let child of children" class="child-card">
+        <mat-card-header>
+          <div mat-card-avatar class="child-avatar">
+            <img [src]="child.studentPhotoUrl || 'assets/default-student.png'" 
+                 [alt]="child.name + ' ' + child.lastName">
+          </div>
+          <mat-card-title>{{ child.name }} {{ child.lastName }}</mat-card-title>
+          <mat-card-subtitle>{{ 'STUDENT_DETAIL.SCHOOL' | translate }}: {{ child.schoolAddress }}</mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <div class="child-info">
+            <div class="info-item">
+              <mat-icon>home</mat-icon>
+              <span>{{ child.homeAddress }}</span>
+            </div>
+            <div class="info-item" *ngIf="child.driverId">
+              <mat-icon>directions_bus</mat-icon>
+              <span>{{ 'STUDENT_DETAIL.DRIVER' | translate }}: {{ 'COMMON.ASSIGNED' | translate }}</span>
+            </div>
+            <div class="info-item" *ngIf="!child.driverId">
+              <mat-icon>warning</mat-icon>
+              <span>{{ 'STUDENT_DETAIL.NO_DRIVER_ASSIGNED' | translate }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+        
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="viewChildDetails(child.id)">
+            <mat-icon>visibility</mat-icon>
+            {{ 'BUTTON.DETAILS' | translate }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

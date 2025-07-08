@@ -1,0 +1,121 @@
+<div class="modal-header">
+  <h2 mat-dialog-title>{{ 'ADD_STUDENT_MODAL.TITLE' | translate }}</h2>
+</div>
+
+<div class="modal-content" mat-dialog-content>
+  <form [formGroup]="studentForm" class="student-form">
+    
+    <!-- Student Information Section -->
+    <div class="form-section">
+      <h3>{{ 'ADD_STUDENT_MODAL.STUDENT_INFO' | translate }}</h3>
+      
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'ADD_STUDENT_MODAL.NAME' | translate }}</mat-label>
+          <input matInput formControlName="name" placeholder="Student name">
+          <mat-error *ngIf="studentForm.get('name')?.hasError('required')">
+            {{ 'ADD_STUDENT_MODAL.NAME_REQUIRED' | translate }}
+          </mat-error>
+          <mat-error *ngIf="studentForm.get('name')?.hasError('minlength')">
+            {{ 'ADD_STUDENT_MODAL.NAME_MIN_LENGTH' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'ADD_STUDENT_MODAL.LAST_NAME' | translate }}</mat-label>
+          <input matInput formControlName="lastName" placeholder="Student last name">
+          <mat-error *ngIf="studentForm.get('lastName')?.hasError('required')">
+            {{ 'ADD_STUDENT_MODAL.LAST_NAME_REQUIRED' | translate }}
+          </mat-error>
+          <mat-error *ngIf="studentForm.get('lastName')?.hasError('minlength')">
+            {{ 'ADD_STUDENT_MODAL.LAST_NAME_MIN_LENGTH' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'ADD_STUDENT_MODAL.HOME_ADDRESS' | translate }}</mat-label>
+          <input matInput formControlName="homeAddress" placeholder="Home address">
+          <mat-error *ngIf="studentForm.get('homeAddress')?.hasError('required')">
+            {{ 'ADD_STUDENT_MODAL.HOME_ADDRESS_REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'ADD_STUDENT_MODAL.SCHOOL_ADDRESS' | translate }}</mat-label>
+          <input matInput formControlName="schoolAddress" placeholder="School address">
+          <mat-error *ngIf="studentForm.get('schoolAddress')?.hasError('required')">
+            {{ 'ADD_STUDENT_MODAL.SCHOOL_ADDRESS_REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'ADD_STUDENT_MODAL.PHOTO_URL' | translate }}</mat-label>
+          <input matInput formControlName="studentPhotoUrl" placeholder="Photo URL">
+          <mat-error *ngIf="studentForm.get('studentPhotoUrl')?.hasError('required')">
+            {{ 'ADD_STUDENT_MODAL.PHOTO_URL_REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'ADD_STUDENT_MODAL.PARENT_PROFILE_ID' | translate }}</mat-label>
+          <input matInput type="number" formControlName="parentProfileId" placeholder="Parent Profile ID">
+          <mat-error *ngIf="studentForm.get('parentProfileId')?.hasError('required')">
+            {{ 'ADD_STUDENT_MODAL.PARENT_PROFILE_ID_REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>{{ 'ADD_STUDENT_MODAL.DRIVER_ID' | translate }}</mat-label>
+        <input matInput type="number" formControlName="driverId" placeholder="Driver ID">
+        <mat-error *ngIf="studentForm.get('driverId')?.hasError('required')">
+          {{ 'ADD_STUDENT_MODAL.DRIVER_ID_REQUIRED' | translate }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Wristband Information Section -->
+    <div class="form-section">
+      <h3>{{ 'ADD_STUDENT_MODAL.WRISTBAND_INFO' | translate }}</h3>
+      
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'ADD_STUDENT_MODAL.RFID_CODE' | translate }}</mat-label>
+          <input matInput formControlName="rfidCode" placeholder="RFID Code">
+          <mat-error *ngIf="studentForm.get('rfidCode')?.hasError('required')">
+            {{ 'ADD_STUDENT_MODAL.RFID_CODE_REQUIRED' | translate }}
+          </mat-error>
+          <mat-error *ngIf="studentForm.get('rfidCode')?.hasError('minlength')">
+            {{ 'ADD_STUDENT_MODAL.RFID_CODE_MIN_LENGTH' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'ADD_STUDENT_MODAL.WRISTBAND_STATUS' | translate }}</mat-label>
+          <mat-select formControlName="wristbandStatus">
+            <mat-option value="ACTIVE">{{ 'ADD_STUDENT_MODAL.ACTIVE' | translate }}</mat-option>
+            <mat-option value="INACTIVE">{{ 'ADD_STUDENT_MODAL.INACTIVE' | translate }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="studentForm.get('wristbandStatus')?.hasError('required')">
+            {{ 'ADD_STUDENT_MODAL.WRISTBAND_STATUS_REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="modal-actions" mat-dialog-actions>
+  <button mat-button (click)="onCancel()" [disabled]="isLoading">
+    {{ 'ADD_STUDENT_MODAL.CANCEL' | translate }}
+  </button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="isLoading || !studentForm.valid">
+    <span *ngIf="isLoading">{{ 'ADD_STUDENT_MODAL.SAVING' | translate }}</span>
+    <span *ngIf="!isLoading">{{ 'ADD_STUDENT_MODAL.SAVE' | translate }}</span>
+  </button>
+</div>

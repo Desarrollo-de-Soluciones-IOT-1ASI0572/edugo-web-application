@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, SimpleChanges, Input, OnChanges} from '@angular/core';
+
 import {
   Chart,
   ArcElement,
@@ -17,8 +18,10 @@ import { AnalyticsServiceService } from '../../services/analytics-service.servic
   styleUrls: ['./pie-chart.component.css']
 })
 export class PieChartComponent implements OnInit, OnChanges {
-  @Input() selectedDriverId: string = '';
+
   @ViewChild('pieCanvas', { static: true }) pieCanvas!: ElementRef<HTMLCanvasElement>;
+  @Input() conductorId!: number;
+
   public chart!: Chart;
 
   constructor(private driverService: AnalyticsServiceService) {
@@ -26,36 +29,33 @@ export class PieChartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.updateChart();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['selectedDriverId']) {
-      this.updateChart();
+    if (this.conductorId) {
+      this.loadChartData(this.conductorId);
     }
   }
 
-  private updateChart(): void {
-    this.driverService.getDriverAnalytics().subscribe(data => {
-      // Destruir el gráfico anterior si existe
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['conductorId'] && !changes['conductorId'].firstChange) {
+      this.loadChartData(this.conductorId);
+    }
+  }
+
+  private loadChartData(id: number): void {
+    this.driverService.getAnalyticsByDriverId(id).subscribe(data => {
+      const totals = {
+        Lateness: data.incidentSummary.lateness,
+        Detour: data.incidentSummary.detour,
+        Speeding: data.incidentSummary.speeding
+      };
+
+      const ctx = this.pieCanvas.nativeElement.getContext('2d');
+      if (!ctx) {
+        return;
+      }
+
       if (this.chart) {
         this.chart.destroy();
       }
-
-      // Filtrar datos según el conductor seleccionado
-      const filteredData = this.selectedDriverId
-        ? data.filter(d => d.driverUserId === this.selectedDriverId)
-        : data;
-
-      const totals = { Lateness: 0, Detour: 0, Speeding: 0 };
-      filteredData.forEach(driver => {
-        totals.Lateness += driver.incidentSummary.lateness;
-        totals.Detour += driver.incidentSummary.detour;
-        totals.Speeding += driver.incidentSummary.speeding;
-      });
-
-      const ctx = this.pieCanvas.nativeElement.getContext('2d');
-      if (!ctx) return console.error('No canvas context for pie chart');
 
       this.chart = new Chart(ctx, {
         type: 'pie',
@@ -79,4 +79,7 @@ export class PieChartComponent implements OnInit, OnChanges {
       });
     });
   }
+
+
+
 }
